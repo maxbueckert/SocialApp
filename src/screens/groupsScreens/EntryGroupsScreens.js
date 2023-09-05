@@ -1,18 +1,17 @@
 import { Text, View , StyleSheet, ScrollView} from 'react-native';
 
 import Header from '../../components/header/Header.js';
-import ProfileIconPanel from '../../components/profile/ProfileIconPanel.js';
-import BasicInfoPanel from '../../components/profile/BasicInfoPanel.js';
-import InterestsPanel from '../../components/profile/InterestsPanel.js';
+import GroupCard from '../../components/groups/GroupCard.js';
 
 export default function EntryProfileScreen() {
     return (
         <View style = {{flex:1}}>
         <Header></Header>
         <ScrollView style = {styles.container}>
-            <ProfileIconPanel></ProfileIconPanel>
-            <BasicInfoPanel></BasicInfoPanel>
-            {/* <InterestsPanel></InterestsPanel> */}
+        <GroupCard></GroupCard>
+        <GroupCard></GroupCard>
+        <GroupCard></GroupCard>
+
         </ScrollView>
         </View>
     );
@@ -20,6 +19,7 @@ export default function EntryProfileScreen() {
 const styles = StyleSheet.create({
     container: {
       flexDirection: 'column',
+      
     //   backgroundColor: '#fff',
     //   alignItems: 'center',
     //   justifyContent: 'center',

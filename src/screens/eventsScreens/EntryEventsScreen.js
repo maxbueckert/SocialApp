@@ -1,20 +1,14 @@
 import { Text, View , StyleSheet, ScrollView} from 'react-native';
 
 import Header from '../../components/header/Header.js';
-import ProfileIconPanel from '../../components/profile/ProfileIconPanel.js';
-import BasicInfoPanel from '../../components/profile/BasicInfoPanel.js';
-import InterestsPanel from '../../components/profile/InterestsPanel.js';
+import ProfileIconPanel from '../../components/profile/ProfileIconPanel.js'
 
 export default function EntryProfileScreen() {
     return (
-        <View style = {{flex:1}}>
-        <Header></Header>
         <ScrollView style = {styles.container}>
+            <Header></Header>
             <ProfileIconPanel></ProfileIconPanel>
-            <BasicInfoPanel></BasicInfoPanel>
-            {/* <InterestsPanel></InterestsPanel> */}
         </ScrollView>
-        </View>
     );
 }
 const styles = StyleSheet.create({

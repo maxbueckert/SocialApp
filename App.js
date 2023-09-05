@@ -5,7 +5,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import Header from './src/components/header/Header.js';
+
 import EntryProfileScreen from './src/screens/profileScreens/EntryProfileScreen.js';
+import EntryEventsScreen from './src/screens/eventsScreens/EntryEventsScreen.js';
+import EntryGroupsScreen from './src/screens/groupsScreens/EntryGroupsScreens.js';
+import EntryChatScreen from './src/screens/chatsScreens/EntryChatsScreen.js';
 
 
 
@@ -20,12 +24,13 @@ export default function App() {
       <Tab.Navigator screenOptions={{ headerShown: false }}>
 
         <Tab.Screen name="Swipe" component={Header} />
-        <Tab.Screen name="Events" component={Header} />
-        <Tab.Screen name="Chats" component={Header} />
-        <Tab.Screen name="Groups" component={Header} />
+        {/* <Tab.Screen name="Matches" component={Header} /> */}
+        <Tab.Screen name="Events" component={EntryEventsScreen} />
+        <Tab.Screen name="Chats" component={EntryChatScreen} />
+        <Tab.Screen name="Groups" component={EntryGroupsScreen} />
         <Tab.Screen name="Profile" component={EntryProfileScreen} />
-
       </Tab.Navigator>
+
     </NavigationContainer>
 
     </SafeAreaProvider>
