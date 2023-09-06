@@ -1,47 +1,29 @@
 import * as React from 'react';
-import { Text, View , StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Header from './src/components/header/Header.js';
+import AuthOptions from './src/screens/authScreens/AuthOptions.js';
+import SignInScreen from './src/screens/authScreens/SignInScreen.js';
+import SignUpScreen from './src/screens/authScreens/SignUpScreen.js';
+import VerificationScreen from './src/screens/authScreens/VerificationScreen.js';
+import MainScreen from './src/screens/MainScreen.js';
 
-import EntryProfileScreen from './src/screens/profileScreens/EntryProfileScreen.js';
-import EntryEventsScreen from './src/screens/eventsScreens/EntryEventsScreen.js';
-import EntryGroupsScreen from './src/screens/groupsScreens/EntryGroupsScreens.js';
-import EntryChatScreen from './src/screens/chatsScreens/EntryChatsScreen.js';
-
-
-
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <SafeAreaProvider>
-
-    <NavigationContainer>
-
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-
-        <Tab.Screen name="Swipe" component={Header} />
-        {/* <Tab.Screen name="Matches" component={Header} /> */}
-        <Tab.Screen name="Events" component={EntryEventsScreen} />
-        <Tab.Screen name="Chats" component={EntryChatScreen} />
-        <Tab.Screen name="Groups" component={EntryGroupsScreen} />
-        <Tab.Screen name="Profile" component={EntryProfileScreen} />
-      </Tab.Navigator>
-
-    </NavigationContainer>
-
+      <NavigationContainer>
+          <Stack.Navigator initialRouteName="AuthOptions">
+            <Stack.Screen name="AuthOptionsScreen" component={AuthOptions} options={{ headerShown: false }}/>
+            <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="SignInScreen" component={SignInScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="VerificationScreen" component={VerificationScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false }}/>
+          </Stack.Navigator>
+        </NavigationContainer>
     </SafeAreaProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-});
