@@ -19,7 +19,6 @@ export default function MainScreen() {
     <SafeAreaProvider>
 
     <NavigationContainer independent = {true}>
-
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="Swipe" component={Header} />
         <Tab.Screen name="Matches" component={Header} />
