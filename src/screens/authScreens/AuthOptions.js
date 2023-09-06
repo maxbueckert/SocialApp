@@ -10,7 +10,7 @@ const MyComponent = ({navigation}) => (
     <View style = {{flex:1}}>
     <Header></Header>
     <View style={{ padding: 20, flex : 1, alignItems : 'center', justifyContent : 'space-evenly' }}>
-        <Button contentStyle = {{ width: 300, height: 100}} icon="account" mode="contained" onPress={() => navigation.navigate("SignInScreen")}>
+        <Button contentStyle = {{ width: 301, height: 100}} icon="account" mode="contained" onPress={() => navigation.navigate("SignInScreen")}>
             Sign In
         </Button>
             <Button  contentStyle = {{ width: 300, height: 100}} icon="account-plus" mode="contained" onPress={() => navigation.navigate("SignUpScreen")}>
