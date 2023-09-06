@@ -10,12 +10,13 @@ import VerificationScreen from './src/screens/authScreens/VerificationScreen.js'
 import MainScreen from './src/screens/MainScreen.js';
 
 const Stack = createStackNavigator();
+// test comment
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName="AuthOptions">
+          <Stack.Navigator initialRouteName="MainScreen">
             <Stack.Screen name="AuthOptionsScreen" component={AuthOptions} options={{ headerShown: false }}/>
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="SignInScreen" component={SignInScreen} options={{ headerShown: false }} />
