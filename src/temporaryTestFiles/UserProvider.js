@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import React, { useState , useEffect } from 'react';
 
 
-import { testUser1, testUser2, testUser3 } from './FakeUsers';
+import { testUser1, testUser2, testUser3 } from './fakeUsers';
 
 export const UserContext = createContext();
 

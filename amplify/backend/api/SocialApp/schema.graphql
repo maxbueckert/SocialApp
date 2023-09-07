@@ -1,10 +1,19 @@
+type Connections @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  User1: String!
+  User2: String!
+  userss: [Users] @manyToMany(relationName: "UsersConnections")
+}
+
 type Users @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   email: String
   age: Int
   gender: String
+  displayPhoto: String
   job: String
   school: String
+  Connections: [Connections] @manyToMany(relationName: "UsersConnections")
 }
  

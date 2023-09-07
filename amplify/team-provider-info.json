@@ -17,6 +17,9 @@
       },
       "storage": {
         "s3socialappstorage77d0974c": {}
+      },
+      "api": {
+        "SocialApp": {}
       }
     }
   }

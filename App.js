@@ -11,8 +11,6 @@ import SignUpScreen from './src/screens/authScreens/SignUpScreen.js';
 import VerificationScreen from './src/screens/authScreens/VerificationScreen.js';
 import MainScreen from './src/screens/MainScreen.js';
 
-
-
 const Stack = createStackNavigator();
 Amplify.configure(awsconfig);
 
