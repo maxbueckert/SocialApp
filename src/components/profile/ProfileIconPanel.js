@@ -12,6 +12,10 @@ import { UserContext } from '../../temporaryTestFiles/UserProvider.js';
 export default function ProfileIconPanel({navigation}) {
 
     const { userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto } = useContext(UserContext);
+
+
+
+
     // console.log("display: ", displayPhoto);  
     const fakeInterests = [" Hiking", "Reading", "Partying", "Running", "Snowing"]
 
@@ -20,16 +24,9 @@ export default function ProfileIconPanel({navigation}) {
 
     const fetchImage = async () => {
         try {
-            // const userInfo = await Auth.currentAuthenticatedUser();
-            // const userId = userInfo.attributes.sub;
-            
-            // // Retrieve the displayPhoto key from the database
-            // const response = await API.graphql(graphqlOperation(getUsers, { id: userId }));
-            // const photoKey = response.data.getUsers.displayPhoto;
-
-            // Retrieve the signed URL for the image from S3
             const signedUrl = await Storage.get(userDisplayPhoto, { level: 'public' });
             setImageUrl(signedUrl);
+            console.log("refreshed");
         } catch (error) {
             console.error('Error fetching image', error);
         }
@@ -37,12 +34,12 @@ export default function ProfileIconPanel({navigation}) {
 
     useEffect(() => {
         fetchImage();
-    }, []);
+    }, [userDisplayPhoto]);
 
 
     return (
         <View style = {styles.container} >
-            <Avatar.Image size={200} source={{ uri: imageUrl }} />
+            <Avatar.Image size={200} source={{ uri: imageUrl, cache: 'reload'  }} />
 
             <View style = {{flexDirection : 'row', alignItems: 'baseline', justifyContent: 'center'}}>
                 <Text style = {styles.name}>{userName + ", " + userAge}</Text>
