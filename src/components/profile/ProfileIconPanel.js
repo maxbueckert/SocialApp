@@ -4,25 +4,35 @@ import { Text, View , StyleSheet, ScrollView} from 'react-native';
 import { Avatar } from 'react-native-paper';
 import { Chip } from 'react-native-paper';
 import { IconButton, MD3Colors } from 'react-native-paper';
- 
+import { FAB } from 'react-native-paper';
+
 import { UserContext } from '../../temporaryTestFiles/UserProvider.js';
 
 export default function ProfileIconPanel({navigation}) {
 
-    const { user } = useContext(UserContext);
+    const { userEmail, userName, userAge, userJob, userSchool } = useContext(UserContext);
+
+    const fakeInterests = [" Hiking", "Reading", "Partying", "Running", "Snowing"]
 
     return (
         <View style = {styles.container} >
             <Avatar.Image size={200} source={require('../../../assets/blank_pp.png')} />
 
             <View style = {{flexDirection : 'row', alignItems: 'baseline', justifyContent: 'center'}}>
-                <Text style = {styles.name}>{user.firstName + ", " + user.age}</Text>
+                <Text style = {styles.name}>{userName + ", " + userAge}</Text>
+                <FAB
+                icon="pencil"
+                mode = 'flat'
+                style={styles.fab}
+                onPress={() => navigation.navigate("EditProfileScreen")}
+                size = "small"
+            />
             </View>
 
             <View style = {{height:20}}></View>
 
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style = {{paddingHorizontal:10}}>
-                {user.attributes.interests.map((interest, index) => {
+                {fakeInterests.map((interest, index) => {
                     return (
                     <View style = {{flexDirection : 'row'}} key={index}>
                         <Chip showSelectedCheck = {false}>{interest}</Chip>
@@ -46,6 +56,10 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 24,
         paddingTop: 20,
+    }, 
+    fab: {
+      margin: 10,
+
     }
 
 });

@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import ViewProfileScreen from './ViewProfileScreen.js';
 import EditProfileScreen from './EditProfileScreen.js';
+import UploadPhotoScreen from './UploadPhotoScreen.js';
 
 
 const Stack = createStackNavigator();
@@ -14,6 +15,7 @@ export default function EntryProfileScreen() {
         <Stack.Navigator initialRouteName="ViewProfileScreen">
             <Stack.Screen name="ViewProfileScreen" component={ViewProfileScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="UploadPhotoScreen" component={UploadPhotoScreen} options={{ headerShown: false }}/>
         </Stack.Navigator>
         </View>
     );

@@ -10,7 +10,7 @@ export default function ViewProfileScreen({navigation}) {
         <View style = {{flex:1}}>
         <Header></Header>
         <ScrollView style = {styles.container}>
-            <ProfileIconPanel></ProfileIconPanel>
+            <ProfileIconPanel navigation = {navigation}></ProfileIconPanel>
             <BasicInfoPanel></BasicInfoPanel>
         </ScrollView>
         </View>

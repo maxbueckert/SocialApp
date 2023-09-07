@@ -8,28 +8,32 @@ import Header from '../../components/header/Header.js';
 import ChatSearchBar from '../../components/chats/ChatSearchBar.js';
 
 export default function EntryChatsScreen() {
-    const [userEmail, setUserEmail] = useState('');
+    // const [userEmail, setUserEmail] = useState('');
 
-    useEffect(() => {
-        const fetchUserEmail = async () => {
-            try {
-                // Get the logged-in user's ID (you may need to adjust based on your auth setup)
-                const userInfo = await Auth.currentAuthenticatedUser();
-                const userId = userInfo.attributes.sub; 
+    // useEffect(() => {
+    //     const fetchUserEmail = async () => {
+    //         try {
+    //             // Get the logged-in user's ID (you may need to adjust based on your auth setup)
+    //             const userInfo = await Auth.currentAuthenticatedUser();
+    //             const userId = userInfo.attributes.sub; 
 
-                // Fetch user's email using GraphQL
-                const response = await API.graphql(graphqlOperation(getUsers, { id: userId }));
-                console.log("User ID from Auth.currentAuthenticatedUser():", userId);
+    //             console.log('Api call issue');
+    //             // console.log(userInfo);
 
-                const email = response.data.getUsers.email;
-                setUserEmail(email);
-            } catch (error) {
-                console.error("Error fetching user's email:", error);
-            }
-        };
+    //             // Fetch user's email using GraphQL
+    //             const response = await API.graphql(graphqlOperation(getUsers, { id: userId }));
+    //             console.log("User ID from Auth.currentAuthenticatedUser():", userId);
+    //             console.log("response: " + response);
 
-        fetchUserEmail();
-    }, []);
+    //             const email = response.data.getUsers.email;
+    //             setUserEmail(email);
+    //         } catch (error) {
+    //             console.error("Error fetching user's email:", error);
+    //         }
+    //     };
+
+    //     fetchUserEmail();
+    // }, []);
 
     return (
         <View style={{flex:1}}>

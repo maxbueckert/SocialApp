@@ -4,23 +4,16 @@ import Header from '../../components/header/Header.js';
 import GroupCard from '../../components/groups/GroupCard.js';
 import { Navigation } from '@mui/icons-material';
 
-export default function EditProfileScreen({navigation}) {
+export default function UploadPhotoScreen({navigation}) {
     return (
         <View style = {{flex:1}}>
-        <Header></Header>
-        <ScrollView style = {styles.container}>
-        <Text>EDITING PROFILE</Text>
-        <Button onPress = {() => {navigation.navigate("ViewProfileScreen")}} title = "Go Back To Profile"></Button>
-        <Button onPress = {() => {navigation.navigate("UploadPhotoScreen")}} title = "Upload Photo"></Button>
-        </ScrollView>
+            <Header></Header>
         </View>
     );
 }
 const styles = StyleSheet.create({
     container: {
       flexDirection: 'column',
-      // justifyContent: 'center',
-      // alignItems: 'center',
       
     //   backgroundColor: '#fff',
     //   alignItems: 'center',

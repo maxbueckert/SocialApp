@@ -5,16 +5,16 @@ import { List, MD3Colors } from 'react-native-paper';
 import { UserContext } from '../../temporaryTestFiles/UserProvider.js';
 
 export default function BasicInfoPanel() {
-  const { user } = React.useContext(UserContext);
+  const { userEmail, userName, userAge, userJob, userSchool } = React.useContext(UserContext);
   return (
     <List.Section style = {styles.container}>
 
-        <List.Item title= {user.location} left={() => <List.Icon icon="map-marker" />} />
+        {/* <List.Item title= {user.location} left={() => <List.Icon icon="map-marker" />} /> */}
 
-        <List.Item title= {user.attributes.job} left={() => <List.Icon icon="briefcase" />} />
+        <List.Item title= {userJob} left={() => <List.Icon icon="briefcase" />} />
 
         <List.Item
-          title= {user.attributes.school}
+          title= {userSchool}
           left={() => <List.Icon color={MD3Colors.tertiary70} icon="school" />}
         />
 
