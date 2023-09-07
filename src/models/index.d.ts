@@ -52,6 +52,7 @@ type EagerUsers = {
   readonly job?: string | null;
   readonly school?: string | null;
   readonly Connections?: (UsersConnections | null)[] | null;
+  readonly interests?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -70,6 +71,7 @@ type LazyUsers = {
   readonly job?: string | null;
   readonly school?: string | null;
   readonly Connections: AsyncCollection<UsersConnections>;
+  readonly interests?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

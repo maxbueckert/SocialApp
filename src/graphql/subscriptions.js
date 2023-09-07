@@ -83,6 +83,7 @@ export const onCreateUsers = /* GraphQL */ `
         startedAt
         __typename
       }
+      interests
       createdAt
       updatedAt
       _version
@@ -108,6 +109,7 @@ export const onUpdateUsers = /* GraphQL */ `
         startedAt
         __typename
       }
+      interests
       createdAt
       updatedAt
       _version
@@ -133,6 +135,7 @@ export const onDeleteUsers = /* GraphQL */ `
         startedAt
         __typename
       }
+      interests
       createdAt
       updatedAt
       _version
@@ -170,6 +173,7 @@ export const onCreateUsersConnections = /* GraphQL */ `
         displayPhoto
         job
         school
+        interests
         createdAt
         updatedAt
         _version
@@ -214,6 +218,7 @@ export const onUpdateUsersConnections = /* GraphQL */ `
         displayPhoto
         job
         school
+        interests
         createdAt
         updatedAt
         _version
@@ -258,6 +263,7 @@ export const onDeleteUsersConnections = /* GraphQL */ `
         displayPhoto
         job
         school
+        interests
         createdAt
         updatedAt
         _version

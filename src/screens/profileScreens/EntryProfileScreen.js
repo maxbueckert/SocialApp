@@ -11,7 +11,6 @@ import PicPreview from './PicPreview.js';
 const Stack = createStackNavigator();
 
 export default function EntryProfileScreen() {
-
     
     return (
         <View style = {{flex:1}}>

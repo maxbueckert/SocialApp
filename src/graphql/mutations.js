@@ -74,7 +74,7 @@ export const createUsers = /* GraphQL */ `
   mutation CreateUsers(
     $input: CreateUsersInput!
     $condition: ModelUsersConditionInput
-  ) 
+  ) {
     createUsers(input: $input, condition: $condition) {
       id
       name
@@ -89,6 +89,7 @@ export const createUsers = /* GraphQL */ `
         startedAt
         __typename
       }
+      interests
       createdAt
       updatedAt
       _version
@@ -117,6 +118,7 @@ export const updateUsers = /* GraphQL */ `
         startedAt
         __typename
       }
+      interests
       createdAt
       updatedAt
       _version
@@ -145,6 +147,7 @@ export const deleteUsers = /* GraphQL */ `
         startedAt
         __typename
       }
+      interests
       createdAt
       updatedAt
       _version
@@ -183,6 +186,7 @@ export const createUsersConnections = /* GraphQL */ `
         displayPhoto
         job
         school
+        interests
         createdAt
         updatedAt
         _version
@@ -228,6 +232,7 @@ export const updateUsersConnections = /* GraphQL */ `
         displayPhoto
         job
         school
+        interests
         createdAt
         updatedAt
         _version
@@ -273,6 +278,7 @@ export const deleteUsersConnections = /* GraphQL */ `
         displayPhoto
         job
         school
+        interests
         createdAt
         updatedAt
         _version

@@ -15,5 +15,6 @@ type Users @model @auth(rules: [{allow: public}]) {
   job: String
   school: String
   Connections: [Connections] @manyToMany(relationName: "UsersConnections")
+  interests: [String]
 }
  
