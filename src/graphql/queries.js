@@ -91,6 +91,7 @@ export const getUsers = /* GraphQL */ `
         startedAt
         __typename
       }
+      interests
       createdAt
       updatedAt
       _version
@@ -116,6 +117,7 @@ export const listUsers = /* GraphQL */ `
         displayPhoto
         job
         school
+        interests
         createdAt
         updatedAt
         _version
@@ -151,6 +153,7 @@ export const syncUsers = /* GraphQL */ `
         displayPhoto
         job
         school
+        interests
         createdAt
         updatedAt
         _version
@@ -190,6 +193,7 @@ export const getUsersConnections = /* GraphQL */ `
         displayPhoto
         job
         school
+        interests
         createdAt
         updatedAt
         _version
