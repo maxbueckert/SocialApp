@@ -41,7 +41,7 @@ export default function EntryChatsScreen() {
             <ChatSearchBar></ChatSearchBar>
             <ScrollView style={styles.container}>
                 {/* Display the email here */}
-                <Text>{userEmail}</Text>
+                {/* <Text>{userEmail}</Text> */}
             </ScrollView>
         </View>
     );
