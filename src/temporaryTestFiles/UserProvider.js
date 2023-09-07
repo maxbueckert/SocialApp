@@ -11,12 +11,14 @@ import { SignalCellularNullSharp } from '@mui/icons-material';
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
+  const [userId, setUserId] = useState("");
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [userAge, setUserAge] = useState(0);
   const [userJob, setUserJob] = useState('');
   const [userSchool, setUserchool] = useState('');
   const [userDisplayPhoto, setUserDisplayPhoto] = useState(null);
+  const [userVersion, setUserVersion] = useState(0);
 
   useEffect(() => {
       const fetchUserEmail = async () => {
@@ -33,19 +35,23 @@ const UserProvider = ({ children }) => {
               console.log("User ID from Auth.currentAuthenticatedUser():", userId);
               console.log("response: " + response);
 
+              const id = response.data.getUsers.id;
               const email = response.data.getUsers.email;
               const name = response.data.getUsers.name;
               const age = response.data.getUsers.age;
               const job = response.data.getUsers.job;
               const school = response.data.getUsers.school;
               const displayPhoto = response.data.getUsers.displayPhoto;
+              const version = response.data.getUsers._version;
 
+              setUserId(id);
               setUserEmail(email);
               setUserName(name);
               setUserAge(age);
               setUserJob(job);
               setUserchool(school);
               setUserDisplayPhoto(displayPhoto);
+              setUserVersion(version);
 
               console.log(email);
               console.log(name);
@@ -53,6 +59,7 @@ const UserProvider = ({ children }) => {
               console.log(job);
               console.log(school);
               console.log(displayPhoto);
+              console.log(version);
 
 
           } catch (error) {
@@ -65,7 +72,7 @@ const UserProvider = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{ userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto, setUserDisplayPhoto }}>
+    <UserContext.Provider value={{ userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto, setUserDisplayPhoto, userVersion, setUserVersion }}>
       {children}
     </UserContext.Provider>
   );

@@ -19,6 +19,7 @@ import { deepPurple } from '@mui/material/colors';
 
 export default function UploadPhotoScreen({navigation}) {
     const [selectedImage, setSelectedImage] = useState(null);
+    const {userDisplayPhoto, setUserDisplayPhoto, userVersion, setUserVersion} = useContext(UserContext);
 
     const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -44,9 +45,15 @@ export default function UploadPhotoScreen({navigation}) {
         const blob = await response.blob();
 
         // Generate a unique filename
-        const uniqueFileName = `image_${new Date().toISOString()}.jpg`;
+
+        function getRandomInt(min, max) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+        // const uniqueFileName = `image_${new Date().toISOString()}.jpg`;
+        const uniqueFileName = `image_${getRandomInt(0, 10000)}.jpg`;
+        console.log("unique file name: " + uniqueFileName);
         
-        // const {userDisplayPhoto, setUserDisplayPhoto} = useContext(UserContext);
         
         try {
           const storageResponse = await Storage.put(uniqueFileName, blob, {
@@ -56,11 +63,13 @@ export default function UploadPhotoScreen({navigation}) {
 
           // get the key 
           const photoKey = storageResponse.key;
+          console.log("S3 key: " + photoKey);
 
           // update the user's profile picture
           const input = {
               id: userId,
-              displayPhoto: photoKey,
+              displayPhoto: uniqueFileName,
+              _version: userVersion,
           };
 
           // I think this needs to be changed to update the user's profile picture using their UserId
@@ -68,10 +77,11 @@ export default function UploadPhotoScreen({navigation}) {
           
           const response = await API.graphql(graphqlOperation(getUsers, { id: userId }));
           const dp = response.data.getUsers.displayPhoto;
-          setUserDisplayPhoto(dp);
-
+          setUserDisplayPhoto(uniqueFileName);
+          console.log("table key: " + dp);
           console.log("Updated DP for User: " + userId + " is: " + dp);
-
+          setUserVersion(userVersion + 1);
+ 
     
 
                 // const email = response.data.getUsers.email;

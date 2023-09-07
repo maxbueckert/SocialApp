@@ -1,10 +1,3 @@
-type Connections @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  User1: String!
-  User2: String!
-  userss: [Users] @manyToMany(relationName: "UsersConnections")
-}
-
 type Users @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
@@ -14,6 +7,6 @@ type Users @model @auth(rules: [{allow: public}]) {
   displayPhoto: String
   job: String
   school: String
-  Connections: [Connections] @manyToMany(relationName: "UsersConnections")
+  interests: [String]
 }
  
