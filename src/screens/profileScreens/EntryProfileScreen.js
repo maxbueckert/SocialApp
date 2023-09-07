@@ -1,15 +1,15 @@
 import { Text, View , StyleSheet, ScrollView} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+
 import ViewProfileScreen from './ViewProfileScreen.js';
 import EditProfileScreen from './EditProfileScreen.js';
 import UploadPhotoScreen from './UploadPhotoScreen.js';
 
-
 const Stack = createStackNavigator();
 
-
 export default function EntryProfileScreen() {
+    
     return (
         <View style = {{flex:1}}>
         <Stack.Navigator initialRouteName="ViewProfileScreen">

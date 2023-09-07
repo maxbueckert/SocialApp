@@ -6,7 +6,7 @@ import { Auth } from 'aws-amplify';
 
 
 
-import { testUser1, testUser2, testUser3 } from './FakeUsers';
+import { testUser1, testUser2, testUser3 } from './fakeUsers';
 
 export const UserContext = createContext();
 
