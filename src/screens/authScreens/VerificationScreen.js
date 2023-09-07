@@ -15,7 +15,7 @@ export default function VerificationScreen({ route, navigation }) {
     const [verificationCode, setVerificationCode] = useState('');
 
     // Get username from previous screen, if you passed it.
-    const username = route.params;
+    const { username } = route.params;
 
     const handleVerification = () => {
         const cognitoUser = new CognitoUser({

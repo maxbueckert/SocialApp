@@ -2,23 +2,45 @@ import * as React from 'react';
 import { StyleSheet} from 'react-native';
 import { List, MD3Colors } from 'react-native-paper';
 
-const BasicInfoPanel = () => (
-  <List.Section style = {styles.container}>
+import { UserContext } from '../../temporaryTestFiles/UserProvider.js';
 
-    {/* <List.Subheader>About Max</List.Subheader> */}
+export default function BasicInfoPanel() {
+  const { user } = React.useContext(UserContext);
+  return (
+    <List.Section style = {styles.container}>
 
-    <List.Item title="Software Engineer @ BWS" left={() => <List.Icon icon="briefcase" />} />
+        <List.Item title= {user.location} left={() => <List.Icon icon="map-marker" />} />
 
-    <List.Item
-      title="University of British Columbia"
-      left={() => <List.Icon color={MD3Colors.tertiary70} icon="school" />}
-    />
+        <List.Item title= {user.attributes.job} left={() => <List.Icon icon="briefcase" />} />
+
+        <List.Item
+          title= {user.attributes.school}
+          left={() => <List.Icon color={MD3Colors.tertiary70} icon="school" />}
+        />
+
+    </List.Section>
+  )
+
+}
+
+// const BasicInfoPanel = () => (
+  
+  // <List.Section style = {styles.container}>
+
+  //   {/* <List.Subheader>About Max</List.Subheader> */}
+
+  //   <List.Item title="Software Engineer @ BWS" left={() => <List.Icon icon="briefcase" />} />
+
+  //   <List.Item
+  //     title="University of British Columbia"
+  //     left={() => <List.Icon color={MD3Colors.tertiary70} icon="school" />}
+  //   />
 
 
-  </List.Section>
-);
+  // </List.Section>
+// );
 
-export default BasicInfoPanel;
+// export default BasicInfoPanel;
 
 const styles =  StyleSheet.create({
     container: {

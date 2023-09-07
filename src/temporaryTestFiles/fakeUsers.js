@@ -14,7 +14,8 @@ export const testUser1 =
           "Hiking",
           "Reading",
           "Traveling",
-          "Yoga"
+          "Yoga",
+          "Partying"
         ],
         "sign": "Aquarius",
         "drinker": "Occasionally",

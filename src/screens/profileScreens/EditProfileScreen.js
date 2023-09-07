@@ -4,7 +4,7 @@ import Header from '../../components/header/Header.js';
 import GroupCard from '../../components/groups/GroupCard.js';
 import { Navigation } from '@mui/icons-material';
 
-export default function Test2({navigation}) {
+export default function EditProfileScreen({navigation}) {
     return (
         <View style = {{flex:1}}>
         <Header></Header>

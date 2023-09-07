@@ -4,6 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import UserProvider from '../temporaryTestFiles/UserProvider.js'
+import { UserContext} from '../temporaryTestFiles/UserProvider.js'
+
 import Header from '../components/header/Header.js';
 
 import EntryProfileScreen from './profileScreens/EntryProfileScreen.js';
@@ -17,7 +20,7 @@ const Tab = createBottomTabNavigator();
 export default function MainScreen() {
   return (
     <SafeAreaProvider>
-
+    <UserProvider>
     <NavigationContainer independent = {true}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="Swipe" component={Header} />
@@ -26,9 +29,8 @@ export default function MainScreen() {
         <Tab.Screen name="Groups" component={EntryGroupsScreen} />
         <Tab.Screen name="Profile" component={EntryProfileScreen} />
       </Tab.Navigator>
-
     </NavigationContainer>
-
+    </UserProvider>
     </SafeAreaProvider>
   );
 }
