@@ -3,27 +3,20 @@ import React, { useState , useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getUsers } from '../graphql/queries';
 import { Auth } from 'aws-amplify';
+import { SignalCellularNullSharp } from '@mui/icons-material';
 
 
 
-import { testUser1, testUser2, testUser3 } from './fakeUsers';
 
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  // const [user, setUser] = useState(null);  // You can initialize this with any initial value you like
-
-  // useEffect(() => {
-  //   setUser(testUser1);
-  // }, []);
-
-
-
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
-  const [userAge, setUserAge] = useState('');
+  const [userAge, setUserAge] = useState(0);
   const [userJob, setUserJob] = useState('');
   const [userSchool, setUserchool] = useState('');
+  const [userDisplayPhoto, setUserDisplayPhoto] = useState(null);
 
   useEffect(() => {
       const fetchUserEmail = async () => {
@@ -45,18 +38,21 @@ const UserProvider = ({ children }) => {
               const age = response.data.getUsers.age;
               const job = response.data.getUsers.job;
               const school = response.data.getUsers.school;
+              const displayPhoto = response.data.getUsers.displayPhoto;
 
               setUserEmail(email);
               setUserName(name);
               setUserAge(age);
               setUserJob(job);
               setUserchool(school);
+              setUserDisplayPhoto(displayPhoto);
 
               console.log(email);
               console.log(name);
               console.log(age);
               console.log(job);
               console.log(school);
+              console.log(userDisplayPhoto);
 
 
           } catch (error) {
@@ -69,7 +65,7 @@ const UserProvider = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{ userEmail, userName, userAge, userJob, userSchool }}>
+    <UserContext.Provider value={{ userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto, setUserDisplayPhoto }}>
       {children}
     </UserContext.Provider>
   );
