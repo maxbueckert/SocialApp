@@ -6,7 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 export default function Header() {
   return (
     <Appbar.Header mode = 'small'>
-        <Appbar.Content title="Link" />
+        <Appbar.Content title="GroupUp" />
         <Appbar.Action icon="calendar" onPress={() => {}} />
         <Appbar.Action icon="magnify" onPress={() => {}} />
     </Appbar.Header>
