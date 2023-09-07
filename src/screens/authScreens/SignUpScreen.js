@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert } from 'react-native';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
+import { API, graphqlOperation } from 'aws-amplify';
+import { createUsers } from '../../graphql/mutations';
+
+
 
 import Header from '../../components/header/Header.js';
 
@@ -16,7 +20,8 @@ export default function SignUpScreen({ navigation }) {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
-    
+
+
 
     const handleSignUp = () => {
         const attributeList = [
@@ -25,16 +30,31 @@ export default function SignUpScreen({ navigation }) {
                 Value: email
             }),
         ];
-
-        userPool.signUp(username, password, attributeList, null, (err, result) => {
+    
+        userPool.signUp(username, password, attributeList, null, async (err, result) => {
             if (err) {
                 Alert.alert("Error", err.message || JSON.stringify(err));
                 return;
             }
-            Alert.alert("Success", "User registration successful. Please sign in.");
-            navigation.navigate('VerificationScreen', {username : username});  // Redirect to SignIn screen
+    
+            // If sign-up is successful, make the GraphQL mutation to add the user to the Users table
+            try {
+                const newUser = {
+                    id: result.userSub,  // This is the unique ID assigned to the user by Cognito
+                    name: username,
+                    email: email
+                };
+    
+                await API.graphql(graphqlOperation(createUsers, { input: newUser }));
+                Alert.alert("Success", "User registration successful. Please verify your email.");
+                console.log(newUser);
+                navigation.navigate('VerificationScreen', {username : username});
+            } catch (error) {
+                console.error("Error adding user to the database", error);
+            }
         });
     };
+    
 
     return (
         <View style = {{flex:1}}>
