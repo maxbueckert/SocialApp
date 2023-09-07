@@ -74,7 +74,7 @@ export const createUsers = /* GraphQL */ `
   mutation CreateUsers(
     $input: CreateUsersInput!
     $condition: ModelUsersConditionInput
-  ) {
+  ) 
     createUsers(input: $input, condition: $condition) {
       id
       name

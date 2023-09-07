@@ -10,8 +10,8 @@ import { UserContext } from '../../temporaryTestFiles/UserProvider.js';
 
 export default function ProfileIconPanel({navigation}) {
 
-    const { userEmail, userName, userAge, userJob, userSchool } = useContext(UserContext);
-
+    const { userEmail, userName, userAge, userJob, userSchool, displayPhoto } = useContext(UserContext);
+    console.log("display: ", displayPhoto);  
     const fakeInterests = [" Hiking", "Reading", "Partying", "Running", "Snowing"]
 
     return (
