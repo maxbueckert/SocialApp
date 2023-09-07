@@ -4,9 +4,9 @@ import Header from '../../components/header/Header.js';
 import GroupCard from '../../components/groups/GroupCard.js';
 import { Navigation } from '@mui/icons-material';
 
-import {UserContext} from '../../temporaryTestFiles/UserProvider.js'
 
-import React, { useState, useContext } from 'react';
+
+import React, { useState } from 'react';
 import { Image, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Storage } from 'aws-amplify';
@@ -63,7 +63,6 @@ export default function UploadPhotoScreen({navigation}) {
         const updatedUser = await API.graphql(graphqlOperation(updateUsers, { input }));
         
         console.log("Display photo from updatedUser: ", updatedUser.data.updateUsers.displayPhoto);
-        setUserDisplayPhoto(selectedUri);
         console.log("User context updated");
         
 
