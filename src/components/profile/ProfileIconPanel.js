@@ -1,22 +1,48 @@
 import { Navigation } from '@mui/icons-material';
-import { useContext, useEffect} from 'react';
+import { useContext, useEffect, useState} from 'react';
 import { Text, View , StyleSheet, ScrollView} from 'react-native';
 import { Avatar } from 'react-native-paper';
 import { Chip } from 'react-native-paper';
 import { IconButton, MD3Colors } from 'react-native-paper';
 import { FAB } from 'react-native-paper';
+import { API, graphqlOperation, Storage, Auth } from 'aws-amplify';
 
 import { UserContext } from '../../temporaryTestFiles/UserProvider.js';
 
 export default function ProfileIconPanel({navigation}) {
 
-    const { userEmail, userName, userAge, userJob, userSchool, displayPhoto } = useContext(UserContext);
-    console.log("display: ", displayPhoto);  
+    const { userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto } = useContext(UserContext);
+    // console.log("display: ", displayPhoto);  
     const fakeInterests = [" Hiking", "Reading", "Partying", "Running", "Snowing"]
+
+
+    const [imageUrl, setImageUrl] = useState(null);
+
+    const fetchImage = async () => {
+        try {
+            // const userInfo = await Auth.currentAuthenticatedUser();
+            // const userId = userInfo.attributes.sub;
+            
+            // // Retrieve the displayPhoto key from the database
+            // const response = await API.graphql(graphqlOperation(getUsers, { id: userId }));
+            // const photoKey = response.data.getUsers.displayPhoto;
+
+            // Retrieve the signed URL for the image from S3
+            const signedUrl = await Storage.get(userDisplayPhoto, { level: 'public' });
+            setImageUrl(signedUrl);
+        } catch (error) {
+            console.error('Error fetching image', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchImage();
+    }, []);
+
 
     return (
         <View style = {styles.container} >
-            <Avatar.Image size={200} source={require('../../../assets/blank_pp.png')} />
+            <Avatar.Image size={200} source={{ uri: imageUrl }} />
 
             <View style = {{flexDirection : 'row', alignItems: 'baseline', justifyContent: 'center'}}>
                 <Text style = {styles.name}>{userName + ", " + userAge}</Text>
@@ -63,3 +89,4 @@ const styles = StyleSheet.create({
     }
 
 });
+

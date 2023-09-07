@@ -52,7 +52,7 @@ const UserProvider = ({ children }) => {
               console.log(age);
               console.log(job);
               console.log(school);
-              console.log(userDisplayPhoto);
+              console.log(displayPhoto);
 
 
           } catch (error) {

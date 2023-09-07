@@ -4,13 +4,15 @@ import Header from '../../components/header/Header.js';
 import GroupCard from '../../components/groups/GroupCard.js';
 import { Navigation } from '@mui/icons-material';
 
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import { Image, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Storage } from 'aws-amplify';
 import { Auth, API, graphqlOperation } from 'aws-amplify';
 import { updateUsers } from '../../graphql/mutations';
 import { getUsers } from '../../graphql/queries';
+import { UserContext } from '../../temporaryTestFiles/UserProvider.js'
+import { deepPurple } from '@mui/material/colors';
 
 
 
@@ -44,6 +46,8 @@ export default function UploadPhotoScreen({navigation}) {
         // Generate a unique filename
         const uniqueFileName = `image_${new Date().toISOString()}.jpg`;
         
+        // const {userDisplayPhoto, setUserDisplayPhoto} = useContext(UserContext);
+        
         try {
           const storageResponse = await Storage.put(uniqueFileName, blob, {
               level: 'public',
@@ -64,8 +68,11 @@ export default function UploadPhotoScreen({navigation}) {
           
           const response = await API.graphql(graphqlOperation(getUsers, { id: userId }));
           const dp = response.data.getUsers.displayPhoto;
+          setUserDisplayPhoto(dp);
+
           console.log("Updated DP for User: " + userId + " is: " + dp);
-            
+
+    
 
                 // const email = response.data.getUsers.email;
           
