@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { View, Button, Alert } from 'react-native';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import { API, graphqlOperation } from 'aws-amplify';
-import { createUsers } from '../../graphql/mutations';
+import { createUsers, createLike } from '../../graphql/mutations';
 import { TextInput } from 'react-native-paper';
+
 
 
 import AuthTitle from '../../components/signup/AuthTitle.js'
@@ -22,10 +23,37 @@ export default function SignUpScreen({ navigation }) {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
+    // this will be moved to verification screen
+    async function addToDatabase(userSub) {
+        try {
+            // add User entry to DB
+            const newUser = {
+                id: userSub,  // Use the passed in userSub
+                name: username,
+                email: email
+            };
+            await API.graphql(graphqlOperation(createUsers, { input: newUser }));
+            
+            console.log("created new User: " + newUser);
 
+            // add Like entry for user to DB
+            const newLike = {
+                likerID: newUser.id,
+                likes: [],  // initially, the likee list can be empty
+                matches: [] // initially, the matches list can be empty
+            };
+            await API.graphql(graphqlOperation(createLike, { input: newLike }));
 
+            console.log("created new Like for User: " + newLike);
+
+        } catch (error) {
+            console.error("Error adding user to the database", error);
+        }
+    }
 
     const handleSignUp = () => {
+
+        
         const attributeList = [
             new CognitoUserAttribute({
                 Name: 'email',
@@ -45,18 +73,14 @@ export default function SignUpScreen({ navigation }) {
     
             // If sign-up is successful, make the GraphQL mutation to add the user to the Users table
             try {
-                const newUser = {
-                    id: result.userSub,  // This is the unique ID assigned to the user by Cognito
-                    name: username,
-                    email: email
-                };
-    
-                await API.graphql(graphqlOperation(createUsers, { input: newUser }));
-                Alert.alert("Success", "User registration successful. Please verify your email.");
-                console.log(newUser);
+                // call to create db entries for user
+                addToDatabase(result.userSub);
                 navigation.navigate('VerificationScreen', {username : username});
+
             } catch (error) {
+
                 console.error("Error adding user to the database", error);
+
             }
         });
     };

@@ -38,6 +38,8 @@ export default function VerificationScreen({ route, navigation }) {
     // }
 
     const handleVerification = () => {
+        console.log("Received username:", username);
+
         const cognitoUser = new CognitoUser({
             Username: username,
             Pool: userPool
@@ -46,6 +48,7 @@ export default function VerificationScreen({ route, navigation }) {
         cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
             if (err) {
                 Alert.alert("Error", err.message || JSON.stringify(err));
+                console.log(err);
                 return;
             }
 

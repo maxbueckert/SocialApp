@@ -79,7 +79,6 @@ export default function MainSwipeScreen() {
     }
 
 
-
     async function fetchUsers() {
         try {
             // fetch all users
@@ -89,6 +88,7 @@ export default function MainSwipeScreen() {
             
             // store users in state variable
             setUsers(filteredUsers);
+            
         } catch (error) {
             console.error("Error fetching users:", error);
         }

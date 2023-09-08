@@ -1,162 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createConnection = /* GraphQL */ `
-  mutation CreateConnection(
-    $input: CreateConnectionInput!
-    $condition: ModelConnectionConditionInput
-  ) {
-    createConnection(input: $input, condition: $condition) {
-      id
-      user1 {
-        id
-        name
-        email
-        age
-        gender
-        displayPhoto
-        job
-        school
-        interests
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-      user1ID
-      user2 {
-        id
-        name
-        email
-        age
-        gender
-        displayPhoto
-        job
-        school
-        interests
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-      user2ID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-  }
-`;
-export const updateConnection = /* GraphQL */ `
-  mutation UpdateConnection(
-    $input: UpdateConnectionInput!
-    $condition: ModelConnectionConditionInput
-  ) {
-    updateConnection(input: $input, condition: $condition) {
-      id
-      user1 {
-        id
-        name
-        email
-        age
-        gender
-        displayPhoto
-        job
-        school
-        interests
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-      user1ID
-      user2 {
-        id
-        name
-        email
-        age
-        gender
-        displayPhoto
-        job
-        school
-        interests
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-      user2ID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-  }
-`;
-export const deleteConnection = /* GraphQL */ `
-  mutation DeleteConnection(
-    $input: DeleteConnectionInput!
-    $condition: ModelConnectionConditionInput
-  ) {
-    deleteConnection(input: $input, condition: $condition) {
-      id
-      user1 {
-        id
-        name
-        email
-        age
-        gender
-        displayPhoto
-        job
-        school
-        interests
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-      user1ID
-      user2 {
-        id
-        name
-        email
-        age
-        gender
-        displayPhoto
-        job
-        school
-        interests
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-      user2ID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-  }
-`;
 export const createLike = /* GraphQL */ `
   mutation CreateLike(
     $input: CreateLikeInput!
@@ -182,7 +26,8 @@ export const createLike = /* GraphQL */ `
         __typename
       }
       likerID
-      likee
+      likes
+      matches
       createdAt
       updatedAt
       _version
@@ -217,7 +62,8 @@ export const updateLike = /* GraphQL */ `
         __typename
       }
       likerID
-      likee
+      likes
+      matches
       createdAt
       updatedAt
       _version
@@ -252,7 +98,8 @@ export const deleteLike = /* GraphQL */ `
         __typename
       }
       likerID
-      likee
+      likes
+      matches
       createdAt
       updatedAt
       _version
@@ -280,7 +127,8 @@ export const createUsers = /* GraphQL */ `
       myLikes {
         id
         likerID
-        likee
+        likes
+        matches
         createdAt
         updatedAt
         _version
@@ -315,7 +163,8 @@ export const updateUsers = /* GraphQL */ `
       myLikes {
         id
         likerID
-        likee
+        likes
+        matches
         createdAt
         updatedAt
         _version
@@ -350,7 +199,8 @@ export const deleteUsers = /* GraphQL */ `
       myLikes {
         id
         likerID
-        likee
+        likes
+        matches
         createdAt
         updatedAt
         _version
