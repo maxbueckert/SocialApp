@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert } from 'react-native';
+import { View, Button, Alert } from 'react-native';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createUsers } from '../../graphql/mutations';
+import { TextInput } from 'react-native-paper';
 
 
+import AuthTitle from '../../components/signup/AuthTitle.js'
 
-import Header from '../../components/header/Header.js';
+
 
 const poolData = {
     UserPoolId: 'us-west-2_ZoUst2VmH',
@@ -30,8 +32,12 @@ export default function SignUpScreen({ navigation }) {
                 Value: email
             }),
         ];
-    
-        userPool.signUp(username, password, attributeList, null, async (err, result) => {
+        
+        console.log(email);
+        console.log(username);
+        console.log(password);
+
+        userPool.signUp(email, password, attributeList, null, async (err, result) => {
             if (err) {
                 Alert.alert("Error", err.message || JSON.stringify(err));
                 return;
@@ -57,27 +63,31 @@ export default function SignUpScreen({ navigation }) {
     
 
     return (
-        <View style = {{flex:1}}>
-        <Header></Header>
-        <View style={{ padding: 20, flex : 1, alignItems : 'center', justifyContent : 'center' }}>
-            <TextInput
-                placeholder="Username"
-                value={username}
-                onChangeText={setUsername}
-            />
-            <TextInput
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
+        <View style={{ paddingTop: 200, flex : 1, alignItems : 'center', justifyContent : 'top' }}>
+
+        
             <TextInput
                 placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
+                mode = {'outlined'}
+                style = {{width: 300}}
             />
+        <View style={{height:20}}></View>
+            <TextInput
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                mode = {'outlined'}
+                style = {{width: 300}}
+                secureTextEntry
+            />
+            <View style={{height:20}}></View>
+            <View style={{height:20}}></View>
             <Button title="Sign Up" onPress={handleSignUp} />
-        </View>
+
+
         </View>
     );
 }
+

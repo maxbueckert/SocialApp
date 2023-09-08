@@ -5,14 +5,21 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Amplify, Storage } from 'aws-amplify';
 import awsconfig from './src/aws-exports';
 
-import AuthOptions from './src/screens/authScreens/AuthOptions.js';
+import EntryAuthScreen from './src/screens/authScreens/EntryAuthScreen.js';
 import SignInScreen from './src/screens/authScreens/SignInScreen.js';
 import SignUpScreen from './src/screens/authScreens/SignUpScreen.js';
 import VerificationScreen from './src/screens/authScreens/VerificationScreen.js';
 import MainScreen from './src/screens/MainScreen.js';
 
+import { colors } from './src/themes/darkTheme.js';
+
+
+
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+
 const Stack = createStackNavigator();
 Amplify.configure(awsconfig);
+
 
 // import { Amplify, Auth, Storage } from 'aws-amplify';
 
@@ -34,20 +41,24 @@ Amplify.configure({
 
 
 export default function App() {
+  const theme = {
+    ...DefaultTheme,
+    colors: colors
 
+
+  };
 
   return (
+    <PaperProvider theme = {theme}>
     <SafeAreaProvider>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName="AuthOptionsScreen">
-            <Stack.Screen name="AuthOptionsScreen" component={AuthOptions} options={{ headerShown: false }}/>
-            <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }}/>
-            <Stack.Screen name="SignInScreen" component={SignInScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="VerificationScreen" component={VerificationScreen} options={{ headerShown: false }} />
+          <Stack.Navigator initialRouteName="EntryAuthScreen">
+            <Stack.Screen name="EntryAuthScreen" component={EntryAuthScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false }}/>
           </Stack.Navigator>
         </NavigationContainer>
     </SafeAreaProvider>
+    </PaperProvider>
   );
 }
 
