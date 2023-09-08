@@ -8,8 +8,42 @@ export const createConnection = /* GraphQL */ `
   ) {
     createConnection(input: $input, condition: $condition) {
       id
-      user1
-      user2
+      user1 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user1ID
+      user2 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user2ID
       createdAt
       updatedAt
       _version
@@ -26,8 +60,42 @@ export const updateConnection = /* GraphQL */ `
   ) {
     updateConnection(input: $input, condition: $condition) {
       id
-      user1
-      user2
+      user1 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user1ID
+      user2 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user2ID
       createdAt
       updatedAt
       _version
@@ -44,8 +112,42 @@ export const deleteConnection = /* GraphQL */ `
   ) {
     deleteConnection(input: $input, condition: $condition) {
       id
-      user1
-      user2
+      user1 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user1ID
+      user2 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user2ID
       createdAt
       updatedAt
       _version
@@ -62,7 +164,24 @@ export const createLike = /* GraphQL */ `
   ) {
     createLike(input: $input, condition: $condition) {
       id
-      liker
+      liker {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      likerID
       likee
       createdAt
       updatedAt
@@ -80,7 +199,24 @@ export const updateLike = /* GraphQL */ `
   ) {
     updateLike(input: $input, condition: $condition) {
       id
-      liker
+      liker {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      likerID
       likee
       createdAt
       updatedAt
@@ -98,7 +234,24 @@ export const deleteLike = /* GraphQL */ `
   ) {
     deleteLike(input: $input, condition: $condition) {
       id
-      liker
+      liker {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      likerID
       likee
       createdAt
       updatedAt
@@ -124,6 +277,17 @@ export const createUsers = /* GraphQL */ `
       job
       school
       interests
+      myLikes {
+        id
+        likerID
+        likee
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -148,6 +312,17 @@ export const updateUsers = /* GraphQL */ `
       job
       school
       interests
+      myLikes {
+        id
+        likerID
+        likee
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -172,6 +347,17 @@ export const deleteUsers = /* GraphQL */ `
       job
       school
       interests
+      myLikes {
+        id
+        likerID
+        likee
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version

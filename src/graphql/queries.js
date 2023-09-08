@@ -5,8 +5,42 @@ export const getConnection = /* GraphQL */ `
   query GetConnection($id: ID!) {
     getConnection(id: $id) {
       id
-      user1
-      user2
+      user1 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user1ID
+      user2 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user2ID
       createdAt
       updatedAt
       _version
@@ -25,8 +59,8 @@ export const listConnections = /* GraphQL */ `
     listConnections(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        user1
-        user2
+        user1ID
+        user2ID
         createdAt
         updatedAt
         _version
@@ -55,8 +89,8 @@ export const syncConnections = /* GraphQL */ `
     ) {
       items {
         id
-        user1
-        user2
+        user1ID
+        user2ID
         createdAt
         updatedAt
         _version
@@ -74,7 +108,24 @@ export const getLike = /* GraphQL */ `
   query GetLike($id: ID!) {
     getLike(id: $id) {
       id
-      liker
+      liker {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      likerID
       likee
       createdAt
       updatedAt
@@ -94,7 +145,7 @@ export const listLikes = /* GraphQL */ `
     listLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        liker
+        likerID
         likee
         createdAt
         updatedAt
@@ -124,7 +175,7 @@ export const syncLikes = /* GraphQL */ `
     ) {
       items {
         id
-        liker
+        likerID
         likee
         createdAt
         updatedAt
@@ -151,6 +202,17 @@ export const getUsers = /* GraphQL */ `
       job
       school
       interests
+      myLikes {
+        id
+        likerID
+        likee
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version

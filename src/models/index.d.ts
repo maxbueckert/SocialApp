@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncItem } from "@aws-amplify/datastore";
 
 
 
@@ -12,8 +12,10 @@ type EagerConnection = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly user1?: string | null;
-  readonly user2?: string | null;
+  readonly user1?: Users | null;
+  readonly user1ID?: string | null;
+  readonly user2?: Users | null;
+  readonly user2ID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -24,8 +26,10 @@ type LazyConnection = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly user1?: string | null;
-  readonly user2?: string | null;
+  readonly user1: AsyncItem<Users | undefined>;
+  readonly user1ID?: string | null;
+  readonly user2: AsyncItem<Users | undefined>;
+  readonly user2ID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -42,7 +46,8 @@ type EagerLike = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly liker?: string | null;
+  readonly liker?: Users | null;
+  readonly likerID: string;
   readonly likee?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -54,7 +59,8 @@ type LazyLike = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly liker?: string | null;
+  readonly liker: AsyncItem<Users | undefined>;
+  readonly likerID: string;
   readonly likee?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -80,6 +86,7 @@ type EagerUsers = {
   readonly job?: string | null;
   readonly school?: string | null;
   readonly interests?: (string | null)[] | null;
+  readonly myLikes?: Like | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -98,6 +105,7 @@ type LazyUsers = {
   readonly job?: string | null;
   readonly school?: string | null;
   readonly interests?: (string | null)[] | null;
+  readonly myLikes: AsyncItem<Like | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

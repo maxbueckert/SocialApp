@@ -1,12 +1,15 @@
 type Connection @model @auth(rules: [{allow: public}]) {
   id: ID!
-  user1: String
-  user2: String
+  user1: Users @hasOne(fields: ["user1ID"])
+  user1ID: ID
+  user2: Users @hasOne(fields: ["user2ID"])
+  user2ID: ID
 }
 
 type Like @model @auth(rules: [{allow: public}]) {
   id: ID!
-  liker: String
+  liker: Users @belongsTo(fields: ["likerID"])
+  likerID: ID!
   likee: [String]
 }
 
@@ -20,5 +23,5 @@ type Users @model @auth(rules: [{allow: public}]) {
   job: String
   school: String
   interests: [String]
+  myLikes: Like @hasOne(fields: ["id"])
 }
- 

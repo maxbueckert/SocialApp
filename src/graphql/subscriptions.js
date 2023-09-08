@@ -7,8 +7,42 @@ export const onCreateConnection = /* GraphQL */ `
   ) {
     onCreateConnection(filter: $filter) {
       id
-      user1
-      user2
+      user1 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user1ID
+      user2 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user2ID
       createdAt
       updatedAt
       _version
@@ -24,8 +58,42 @@ export const onUpdateConnection = /* GraphQL */ `
   ) {
     onUpdateConnection(filter: $filter) {
       id
-      user1
-      user2
+      user1 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user1ID
+      user2 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user2ID
       createdAt
       updatedAt
       _version
@@ -41,8 +109,42 @@ export const onDeleteConnection = /* GraphQL */ `
   ) {
     onDeleteConnection(filter: $filter) {
       id
-      user1
-      user2
+      user1 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user1ID
+      user2 {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      user2ID
       createdAt
       updatedAt
       _version
@@ -56,7 +158,24 @@ export const onCreateLike = /* GraphQL */ `
   subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
     onCreateLike(filter: $filter) {
       id
-      liker
+      liker {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      likerID
       likee
       createdAt
       updatedAt
@@ -71,7 +190,24 @@ export const onUpdateLike = /* GraphQL */ `
   subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
     onUpdateLike(filter: $filter) {
       id
-      liker
+      liker {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      likerID
       likee
       createdAt
       updatedAt
@@ -86,7 +222,24 @@ export const onDeleteLike = /* GraphQL */ `
   subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
     onDeleteLike(filter: $filter) {
       id
-      liker
+      liker {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      likerID
       likee
       createdAt
       updatedAt
@@ -109,6 +262,17 @@ export const onCreateUsers = /* GraphQL */ `
       job
       school
       interests
+      myLikes {
+        id
+        likerID
+        likee
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -130,6 +294,17 @@ export const onUpdateUsers = /* GraphQL */ `
       job
       school
       interests
+      myLikes {
+        id
+        likerID
+        likee
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -151,6 +326,17 @@ export const onDeleteUsers = /* GraphQL */ `
       job
       school
       interests
+      myLikes {
+        id
+        likerID
+        likee
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version

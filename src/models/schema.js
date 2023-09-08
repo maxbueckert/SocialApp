@@ -13,14 +13,50 @@ export const schema = {
                 "user1": {
                     "name": "user1",
                     "isArray": false,
-                    "type": "String",
+                    "type": {
+                        "model": "Users"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": [
+                            "id"
+                        ],
+                        "targetNames": [
+                            "user1ID"
+                        ]
+                    }
+                },
+                "user1ID": {
+                    "name": "user1ID",
+                    "isArray": false,
+                    "type": "ID",
                     "isRequired": false,
                     "attributes": []
                 },
                 "user2": {
                     "name": "user2",
                     "isArray": false,
-                    "type": "String",
+                    "type": {
+                        "model": "Users"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": [
+                            "id"
+                        ],
+                        "targetNames": [
+                            "user2ID"
+                        ]
+                    }
+                },
+                "user2ID": {
+                    "name": "user2ID",
+                    "isArray": false,
+                    "type": "ID",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -79,8 +115,23 @@ export const schema = {
                 "liker": {
                     "name": "liker",
                     "isArray": false,
-                    "type": "String",
+                    "type": {
+                        "model": "Users"
+                    },
                     "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "likerID"
+                        ]
+                    }
+                },
+                "likerID": {
+                    "name": "likerID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "likee": {
@@ -200,6 +251,24 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "myLikes": {
+                    "name": "myLikes",
+                    "isArray": false,
+                    "type": {
+                        "model": "Like"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": [
+                            "id"
+                        ],
+                        "targetNames": [
+                            "id"
+                        ]
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -246,5 +315,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "8177d6c6ad3cc68e58d98501865dea9d"
+    "version": "909e968dca76b5af3db664907dbd73a5"
 };
