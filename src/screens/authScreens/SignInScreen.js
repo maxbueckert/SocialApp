@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert } from 'react-native';
+import { View, Button, Alert } from 'react-native';
 import { CognitoUser, AuthenticationDetails , CognitoUserPool} from 'amazon-cognito-identity-js';
+import { TextInput } from 'react-native-paper';
 
 import Header from '../../components/header/Header.js';
+
+import AuthTitle from '../../components/signup/AuthTitle.js'
 
 const poolData = {
     UserPoolId: 'us-west-2_ZoUst2VmH',
@@ -39,22 +42,25 @@ export default function SignInScreen({navigation}) {
     };
 
     return (
-        <View style = {{flex:1}}>
-        <Header></Header>
-        <View style={{ padding: 20, flex : 1, alignItems : 'center', justifyContent : 'center' }}>
+        <View style={{ paddingTop: 200, flex : 1, alignItems : 'center', justifyContent : 'top' }}>
             <TextInput
                 placeholder="Username"
                 value={username}
                 onChangeText={setUsername}
+                mode = {'outlined'}
+                style = {{width: 300}}
             />
+        <View style={{height:20}}></View>
             <TextInput
                 placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
+                mode = {'outlined'}
+                style = {{width: 300}}
                 secureTextEntry
             />
-            <Button title="Sign In" onPress={handleSignIn} />
-        </View>
+            <View style={{height:20}}></View>
+        <Button title="Sign In" onPress={handleSignIn} />
         </View>
     );
 }
