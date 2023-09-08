@@ -43,8 +43,6 @@ export default function SignInScreen({navigation}) {
 
     return (
         <View style={{ paddingTop: 200, flex : 1, alignItems : 'center', justifyContent : 'top' }}>
-
-        
             <TextInput
                 placeholder="Username"
                 value={username}
@@ -62,9 +60,7 @@ export default function SignInScreen({navigation}) {
                 secureTextEntry
             />
             <View style={{height:20}}></View>
-            <Button title="Sign In" onPress={handleSignIn} />
-
-
+        <Button title="Sign In" onPress={handleSignIn} />
         </View>
     );
 }
