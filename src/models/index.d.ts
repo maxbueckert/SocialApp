@@ -6,40 +6,6 @@ import { LazyLoading, LazyLoadingDisabled, AsyncItem } from "@aws-amplify/datast
 
 
 
-type EagerConnection = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Connection, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly user1?: Users | null;
-  readonly user1ID?: string | null;
-  readonly user2?: Users | null;
-  readonly user2ID?: string | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyConnection = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Connection, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly user1: AsyncItem<Users | undefined>;
-  readonly user1ID?: string | null;
-  readonly user2: AsyncItem<Users | undefined>;
-  readonly user2ID?: string | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type Connection = LazyLoading extends LazyLoadingDisabled ? EagerConnection : LazyConnection
-
-export declare const Connection: (new (init: ModelInit<Connection>) => Connection) & {
-  copyOf(source: Connection, mutator: (draft: MutableModel<Connection>) => MutableModel<Connection> | void): Connection;
-}
-
 type EagerLike = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Like, 'id'>;
@@ -48,7 +14,8 @@ type EagerLike = {
   readonly id: string;
   readonly liker?: Users | null;
   readonly likerID: string;
-  readonly likee?: (string | null)[] | null;
+  readonly likes?: (string | null)[] | null;
+  readonly matches?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -61,7 +28,8 @@ type LazyLike = {
   readonly id: string;
   readonly liker: AsyncItem<Users | undefined>;
   readonly likerID: string;
-  readonly likee?: (string | null)[] | null;
+  readonly likes?: (string | null)[] | null;
+  readonly matches?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

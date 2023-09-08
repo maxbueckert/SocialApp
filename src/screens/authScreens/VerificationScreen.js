@@ -19,7 +19,27 @@ export default function VerificationScreen({ route, navigation }) {
     // Get username from previous screen, if you passed it.
     const { username } = route.params;
 
+    // async function addToDatabase() {
+    //     try {
+
+    //         const newUser = {
+    //             id: result.userSub,  // This is the unique ID assigned to the user by Cognito
+    //             name: username,
+    //             email: email
+    //         };
+    //         console.log(result.userSub)
+
+    //         // await API.graphql(graphqlOperation(createUsers, { input: newUser }));
+    //         Alert.alert("Success", "User registration successful. Please verify your email.");
+    //         console.log(newUser);
+    //     } catch (error) {
+    //         console.error("Error adding user to the database", error);
+    //     }
+    // }
+
     const handleVerification = () => {
+        console.log("Received username:", username);
+
         const cognitoUser = new CognitoUser({
             Username: username,
             Pool: userPool
@@ -28,8 +48,12 @@ export default function VerificationScreen({ route, navigation }) {
         cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
             if (err) {
                 Alert.alert("Error", err.message || JSON.stringify(err));
+                console.log(err);
                 return;
             }
+
+            // addToDatabase();
+            
             Alert.alert("Success", "Verification successful. Please sign in.");
             navigation.navigate('MainScreen');  // Redirect to SignIn screen
         });
