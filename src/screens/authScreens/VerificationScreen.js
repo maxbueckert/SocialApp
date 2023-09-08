@@ -49,13 +49,14 @@ export default function VerificationScreen({ route, navigation }) {
             if (err) {
                 Alert.alert("Error", err.message || JSON.stringify(err));
                 console.log(err);
+                console.log("the error is here");
                 return;
             }
 
             // addToDatabase();
             
             Alert.alert("Success", "Verification successful. Please sign in.");
-            navigation.navigate('MainScreen');  // Redirect to SignIn screen
+            navigation.navigate('SignInScreen');  // Redirect to SignIn screen
         });
     };
 

@@ -25,6 +25,7 @@ const UserProvider = ({ children }) => {
           try {
               // Get the logged-in user's ID (you may need to adjust based on your auth setup)
               const userInfo = await Auth.currentAuthenticatedUser();
+              console.log("got here");
               const userId = userInfo.attributes.sub; 
 
               console.log('Api call issue');
@@ -64,6 +65,7 @@ const UserProvider = ({ children }) => {
 
           } catch (error) {
               console.error("Error fetching user's email:", error);
+              fetchUserEmail();
           }
       };
 

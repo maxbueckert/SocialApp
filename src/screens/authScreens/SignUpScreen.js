@@ -29,7 +29,7 @@ export default function SignUpScreen({ navigation }) {
             // add User entry to DB
             const newUser = {
                 id: userSub,  // Use the passed in userSub
-                name: username,
+                // name: email,
                 email: email
             };
             await API.graphql(graphqlOperation(createUsers, { input: newUser }));
@@ -75,7 +75,7 @@ export default function SignUpScreen({ navigation }) {
             try {
                 // call to create db entries for user
                 addToDatabase(result.userSub);
-                navigation.navigate('VerificationScreen', {username : username});
+                navigation.navigate('VerificationScreen', {username : email});
 
             } catch (error) {
 
@@ -88,8 +88,6 @@ export default function SignUpScreen({ navigation }) {
 
     return (
         <View style={{ paddingTop: 200, flex : 1, alignItems : 'center', justifyContent : 'top' }}>
-
-        
             <TextInput
                 placeholder="Email"
                 value={email}
