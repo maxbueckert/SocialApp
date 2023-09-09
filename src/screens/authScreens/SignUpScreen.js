@@ -23,33 +23,33 @@ export default function SignUpScreen({ navigation }) {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
-    // this will be moved to verification screen
-    async function addToDatabase(userSub) {
-        try {
-            // add User entry to DB
-            const newUser = {
-                id: userSub,  // Use the passed in userSub
-                // name: email,
-                email: email
-            };
-            await API.graphql(graphqlOperation(createUsers, { input: newUser }));
+    // // this will be moved to verification screen
+    // async function addToDatabase(userSub) {
+    //     try {
+    //         // add User entry to DB
+    //         const newUser = {
+    //             id: userSub,  // Use the passed in userSub
+    //             // name: email,
+    //             email: email
+    //         };
+    //         await API.graphql(graphqlOperation(createUsers, { input: newUser }));
             
-            console.log("created new User: " + newUser);
+    //         console.log("created new User: " + newUser);
 
-            // add Like entry for user to DB
-            const newLike = {
-                likerID: newUser.id,
-                likes: [],  // initially, the likee list can be empty
-                matches: [] // initially, the matches list can be empty
-            };
-            await API.graphql(graphqlOperation(createLike, { input: newLike }));
+    //         // add Like entry for user to DB
+    //         const newLike = {
+    //             likerID: newUser.id,
+    //             likes: [],  // initially, the likee list can be empty
+    //             matches: [] // initially, the matches list can be empty
+    //         };
+    //         await API.graphql(graphqlOperation(createLike, { input: newLike }));
 
-            console.log("created new Like for User: " + newLike);
+    //         console.log("created new Like for User: " + newLike);
 
-        } catch (error) {
-            console.error("Error adding user to the database", error);
-        }
-    }
+    //     } catch (error) {
+    //         console.error("Error adding user to the database", error);
+    //     }
+    // }
 
     const handleSignUp = () => {
 
@@ -74,8 +74,8 @@ export default function SignUpScreen({ navigation }) {
             // If sign-up is successful, make the GraphQL mutation to add the user to the Users table
             try {
                 // call to create db entries for user
-                addToDatabase(result.userSub);
-                navigation.navigate('VerificationScreen', {username : email});
+                // addToDatabase(result.userSub);
+                navigation.navigate('VerificationScreen', {username : email, password : password, userSub : result.userSub});
 
             } catch (error) {
 

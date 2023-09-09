@@ -3,7 +3,7 @@ import React, { useState , useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getUsers } from '../graphql/queries';
 import { Auth } from 'aws-amplify';
-import { SignalCellularNullSharp } from '@mui/icons-material';
+import { Navigation, SignalCellularNullSharp } from '@mui/icons-material';
 
 
 
@@ -18,18 +18,15 @@ const UserProvider = ({ children }) => {
   const [userJob, setUserJob] = useState('');
   const [userSchool, setUserchool] = useState('');
   const [userDisplayPhoto, setUserDisplayPhoto] = useState(null);
+  const [userInterests, setUserInterests] = useState([])
   const [userVersion, setUserVersion] = useState(0);
 
-  useEffect(() => {
+  // useEffect(() => {
       const fetchUserEmail = async () => {
           try {
               // Get the logged-in user's ID (you may need to adjust based on your auth setup)
-              const userInfo = await Auth.currentAuthenticatedUser();
-              console.log("got here");
+              const userInfo = await Auth.currentAuthenticatedUser({ bypassCache: true });
               const userId = userInfo.attributes.sub; 
-
-              console.log('Api call issue');
-              // console.log(userInfo);
 
               // Fetch user's email using GraphQL
               const response = await API.graphql(graphqlOperation(getUsers, { id: userId }));
@@ -42,8 +39,9 @@ const UserProvider = ({ children }) => {
               const age = response.data.getUsers.age;
               const job = response.data.getUsers.job;
               const school = response.data.getUsers.school;
+              const interests = response.data.getUsers.interests;
               const displayPhoto = response.data.getUsers.displayPhoto;
-              const version = response.data.getUsers._version;
+              const _version = response.data.getUsers._version;
 
               setUserId(id);
               setUserEmail(email);
@@ -52,7 +50,8 @@ const UserProvider = ({ children }) => {
               setUserJob(job);
               setUserchool(school);
               setUserDisplayPhoto(displayPhoto);
-              setUserVersion(version);
+              setUserInterests(interests);
+              setUserVersion(_version);
 
               console.log(email);
               console.log(name);
@@ -60,21 +59,33 @@ const UserProvider = ({ children }) => {
               console.log(job);
               console.log(school);
               console.log(displayPhoto);
-              console.log(version);
+              console.log(_version);
 
 
           } catch (error) {
-              console.error("Error fetching user's email:", error);
-              fetchUserEmail();
+              console.error("Error fetching user's info from database after successfully signing in:", error);
+
           }
       };
 
-      fetchUserEmail();
-  }, []);
 
+      useEffect(() => {
+        const checkUserAuth = async () => {
+            try {
+                const session = await Auth.currentSession();
+                if (session) {
+                    fetchUserEmail();
+                }
+            } catch (error) {
+                console.log("No authenticated session found, i.e. user not signed in:", error);
+            }
+        };
+
+        checkUserAuth();
+    }, []);
 
   return (
-    <UserContext.Provider value={{userId, userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto, setUserDisplayPhoto, userVersion, setUserVersion }}>
+    <UserContext.Provider value={{userId, userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto, setUserDisplayPhoto, userVersion, setUserVersion, userInterests }}>
       {children}
     </UserContext.Provider>
   );

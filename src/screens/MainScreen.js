@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect} from 'react';
 import { Text, View , StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -14,11 +14,29 @@ import EntryGroupsScreen from './groupsScreens/EntryGroupsScreens.js';
 import EntryChatScreen from './chatsScreens/EntryChatsScreen.js';
 import MainSwipScreen from './swipeScreens/mainSwipeScreen.js';
 
+import { Auth } from 'aws-amplify';
+
 
 const Tab = createBottomTabNavigator();
 
 
 export default function MainScreen() {
+
+
+  useEffect(() => {
+    async function checkUserAuth() {
+        try {
+            const user = await Auth.currentAuthenticatedUser();
+            console.log('User is authenticated:', user);
+        } catch (error) {
+            console.error('In MainScreen: User is not authenticated:', error);
+        }
+    }
+
+    checkUserAuth();
+}, []);
+
+
   return (
     <SafeAreaProvider>
     <UserProvider>

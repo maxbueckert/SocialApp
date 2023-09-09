@@ -9,15 +9,16 @@ import { API, graphqlOperation, Storage, Auth } from 'aws-amplify';
 
 import { UserContext } from '../../temporaryTestFiles/UserProvider.js';
 
+
 export default function ProfileIconPanel({navigation}) {
 
-    const { userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto } = useContext(UserContext);
+    const { userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto , userInterests} = useContext(UserContext);
 
 
 
 
     // console.log("display: ", displayPhoto);  
-    const fakeInterests = [" Hiking", "Reading", "Partying", "Running", "Snowing"]
+    // const fakeInterests = [" Hiking", "Reading", "Partying", "Running", "Snowing"]
 
 
     const [imageUrl, setImageUrl] = useState(null);
@@ -39,7 +40,7 @@ export default function ProfileIconPanel({navigation}) {
 
     return (
         <View style = {styles.container} >
-            <Avatar.Image size={200} source={{ uri: imageUrl, cache: 'reload'  }} />
+            <Avatar.Image size={200} source={ userDisplayPhoto ? { uri: imageUrl, cache: 'reload'  } : require('../../../assets/blank_pp.png')} />
 
             <View style = {{flexDirection : 'row', alignItems: 'baseline', justifyContent: 'center'}}>
                 <Text style = {styles.name}>{userName + ", " + userAge}</Text>
@@ -55,7 +56,7 @@ export default function ProfileIconPanel({navigation}) {
             <View style = {{height:20}}></View>
 
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style = {{paddingHorizontal:10}}>
-                {fakeInterests.map((interest, index) => {
+                {userInterests.map((interest, index) => {
                     return (
                     <View style = {{flexDirection : 'row'}} key={index}>
                         <Chip showSelectedCheck = {false}>{interest}</Chip>

@@ -55,6 +55,7 @@ type EagerUsers = {
   readonly school?: string | null;
   readonly interests?: (string | null)[] | null;
   readonly myLikes?: Like | null;
+  readonly newUser?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -74,6 +75,7 @@ type LazyUsers = {
   readonly school?: string | null;
   readonly interests?: (string | null)[] | null;
   readonly myLikes: AsyncItem<Like | undefined>;
+  readonly newUser?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

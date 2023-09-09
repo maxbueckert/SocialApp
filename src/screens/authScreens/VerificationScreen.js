@@ -17,7 +17,7 @@ export default function VerificationScreen({ route, navigation }) {
     const [verificationCode, setVerificationCode] = useState('');
 
     // Get username from previous screen, if you passed it.
-    const { username } = route.params;
+    const { username , password, userSub} = route.params;
 
     // async function addToDatabase() {
     //     try {
@@ -56,7 +56,7 @@ export default function VerificationScreen({ route, navigation }) {
             // addToDatabase();
             
             Alert.alert("Success", "Verification successful. Please sign in.");
-            navigation.navigate('SignInScreen');  // Redirect to SignIn screen
+            navigation.navigate('AttributeScreen', {email: username, password: password, userSub : userSub });  // Redirect to SignIn screen
         });
     };
 
