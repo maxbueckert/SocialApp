@@ -5,9 +5,6 @@ import { getUsers } from '../graphql/queries';
 import { Auth } from 'aws-amplify';
 import { Navigation, SignalCellularNullSharp } from '@mui/icons-material';
 
-
-
-
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
@@ -19,6 +16,7 @@ const UserProvider = ({ children }) => {
   const [userSchool, setUserchool] = useState('');
   const [userDisplayPhoto, setUserDisplayPhoto] = useState(null);
   const [userInterests, setUserInterests] = useState([])
+  const [userPhotos, setUserPhotos] = useState([]);
   const [userVersion, setUserVersion] = useState(0);
 
   // useEffect(() => {
@@ -41,6 +39,7 @@ const UserProvider = ({ children }) => {
               const school = response.data.getUsers.school;
               const interests = response.data.getUsers.interests;
               const displayPhoto = response.data.getUsers.displayPhoto;
+              const photos = response.data.getUsers.photos;
               const _version = response.data.getUsers._version;
 
               setUserId(id);
@@ -50,20 +49,23 @@ const UserProvider = ({ children }) => {
               setUserJob(job);
               setUserchool(school);
               setUserDisplayPhoto(displayPhoto);
-              setUserInterests(interests);
+              setUserInterests(!interests? [] : interests);
+              setUserPhotos(!photos? [] : photos);
               setUserVersion(_version);
 
-              console.log(email);
-              console.log(name);
-              console.log(age);
-              console.log(job);
-              console.log(school);
-              console.log(displayPhoto);
-              console.log(_version);
+            console.log("email: " + email);
+            console.log("name: " + name);
+            console.log("age: " + age);
+            console.log("job: " + job);
+            console.log("school: " + school);
+            console.log("displayPhoto: " + displayPhoto);
+            console.log("interests: " + interests);
+            console.log("photos: " + photos);
+            console.log("_version: " + _version);
 
 
           } catch (error) {
-              console.error("Error fetching user's info from database after successfully signing in:", error);
+              console.error("Error fetching user's info from database for use in UserContext:", error);
 
           }
       };
@@ -77,7 +79,7 @@ const UserProvider = ({ children }) => {
                     fetchUserEmail();
                 }
             } catch (error) {
-                console.log("No authenticated session found, i.e. user not signed in:", error);
+                console.log("No authenticated session found, i.e. user not signed in, in UserContext:", error);
             }
         };
 
@@ -85,7 +87,7 @@ const UserProvider = ({ children }) => {
     }, []);
 
   return (
-    <UserContext.Provider value={{userId, userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto, setUserDisplayPhoto, userVersion, setUserVersion, userInterests }}>
+    <UserContext.Provider value={{userId, userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto, setUserDisplayPhoto, userVersion, setUserVersion, userInterests , userPhotos, setUserPhotos}}>
       {children}
     </UserContext.Provider>
   );

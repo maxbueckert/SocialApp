@@ -16,8 +16,11 @@ import { deepPurple } from '@mui/material/colors';
 
 
 export default function UploadPhotoScreen({navigation}) {
-    const [selectedImage, setSelectedImage] = useState(null);
-    const {userId, setUserDisplayPhoto, userVersion, setUserVersion} = useContext(UserContext);
+    const [selectedImages, setSelectedImages] = useState([]);
+    const {userId, userPhotos, setUserPhotos, userDisplayPhoto, setUserDisplayPhoto, userVersion, setUserVersion} = useContext(UserContext);
+    // const [toDisplay, setToDisplay] = useState(userPhotos)
+    const [isUploading, setIsUploading] = useState(false);
+
 
     const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -33,12 +36,13 @@ export default function UploadPhotoScreen({navigation}) {
         const selectedUri = result.assets[0].uri;
         // const userInfo = await Auth.currentAuthenticatedUser();
         // const userId = userInfo.attributes.sub;
-        setSelectedImage(selectedUri);
+        setSelectedImages([...selectedImages, selectedUri]);
         uploadToS3(userId, selectedUri);
       }
     };
 
     const uploadToS3 = async (userId, uri) => {
+       setIsUploading(true);
         const response = await fetch(uri);
         const blob = await response.blob();
 
@@ -49,7 +53,7 @@ export default function UploadPhotoScreen({navigation}) {
       }
 
         // const uniqueFileName = `image_${new Date().toISOString()}.jpg`;
-        const uniqueFileName = `image_${getRandomInt(0, 10000)}.jpg`;
+        const uniqueFileName = `image_${getRandomInt(0, 900000)}.jpg`;
         console.log("unique file name: " + uniqueFileName);
         
         
@@ -63,39 +67,48 @@ export default function UploadPhotoScreen({navigation}) {
           const photoKey = storageResponse.key;
           console.log("S3 key: " + photoKey);
 
-          // update the user's profile picture
+          // update the new photo to database
           const input = {
               id: userId,
-              displayPhoto: uniqueFileName,
+              photos: userPhotos? [...userPhotos, photoKey] : [photoKey],
               _version: userVersion,
           };
 
-          // I think this needs to be changed to update the user's profile picture using their UserId
+          console.log("adding to database");
+
           await API.graphql(graphqlOperation(updateUsers, { input }));
           
-          const response = await API.graphql(graphqlOperation(getUsers, { id: userId }));
-          const dp = response.data.getUsers.displayPhoto;
 
-          console.log("table key: " + dp);
-          console.log("Updated DP for User: " + userId + " is: " + dp);
+          console.log("added to database");
+
+          // NEED TO INCREASE USER VERSION!!!
           setUserVersion(userVersion + 1);
 
+          // edit UserContext to add new photo
+          if (userPhotos) {
+            setUserPhotos(prevUserPhotos => [...prevUserPhotos, photoKey]);
+          } else {
+            setUserPhotos([photoKey]);
+          }
+          setIsUploading(false);
 
-          setUserDisplayPhoto(uniqueFileName);
-
-    
 
                 // const email = response.data.getUsers.email;
           
         } catch (error) {
         console.error('Error uploading to S3 and database', error);
+        setIsUploading(false);
         }
     };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image" onPress={pickImage} />
-      {selectedImage && <Image source={{ uri: selectedImage }} style={{ width: 200, height: 200 }} />}
-    </View>
+    <ScrollView style ={{padding : 100}}>
+      {selectedImages.map((image, key) => (
+        <Image key={key} source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        ))}
+
+  <Button title="add image" onPress={pickImage} disabled={isUploading} />
+       
+    </ScrollView>
   );
 }

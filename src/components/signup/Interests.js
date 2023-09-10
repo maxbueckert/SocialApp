@@ -23,7 +23,7 @@ const InterestsChips = ({setUserInterests, registerUser}) => {
 
 
   const addInterest = (interest) => {
-    setSelectedInterests([...selectedInterests, interest]);
+    setSelectedInterests(selectedInterests => [...selectedInterests, interest]);
   };
 
   const removeInterest = (interest) => {

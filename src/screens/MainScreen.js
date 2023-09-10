@@ -27,21 +27,20 @@ export default function MainScreen() {
     async function checkUserAuth() {
         try {
             const user = await Auth.currentAuthenticatedUser();
-            console.log('User is authenticated:', user);
         } catch (error) {
             console.error('In MainScreen: User is not authenticated:', error);
         }
     }
 
     checkUserAuth();
-}, []);
+    }, []);
 
 
   return (
     <SafeAreaProvider>
     <UserProvider>
     <NavigationContainer independent = {true}>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Navigator initialRouteName="Profile" screenOptions={{ headerShown: false }}>
         <Tab.Screen name="Swipe" component={MainSwipScreen} />
         <Tab.Screen name="Matches" component={Header} />
         <Tab.Screen name="Chats" component={EntryChatScreen} />
