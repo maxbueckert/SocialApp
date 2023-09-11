@@ -32,10 +32,13 @@ export default function AttributeScreen({route, navigation}) {
     const [userJob, setUserJob] = useState(null);
     const [userSchool, setUserchool] = useState(null);
     const [userInterests, setUserInterests] = useState([])
-    const [showInterests, setShowInterests] = useState(false);
 
+    const [showInterests, setShowInterests] = useState(false);
     const isFirstRender = useRef(true); // This ref will determine if it's the first render
 
+
+    // after user enters school (the last text input field required), the interest panel will show up and allow
+    // user to select interests
     useEffect(() => {
         // If it's the first render, just update the ref and skip the logic inside
         if (isFirstRender.current) {
@@ -46,6 +49,8 @@ export default function AttributeScreen({route, navigation}) {
     }, [userSchool]);
 
 
+    // after user selects interests (the final step in user setup atm), the user is added to database, then logged in
+    // NOTE** This code (and logInToNewAccount) should probably be abstracted into a new file
     async function addToDatabase() {
         try {
             // add User entry to DB
@@ -77,7 +82,7 @@ export default function AttributeScreen({route, navigation}) {
             console.error("Error adding user to the database", error);
         }
     }
-
+    // see note for addToDatabase method above
     async function loginToNewAccount() {
         try {
             const user = await Auth.signIn(email, password);

@@ -18,7 +18,7 @@ export const createLike = /* GraphQL */ `
         job
         school
         interests
-        newUser
+        photos
         createdAt
         updatedAt
         _version
@@ -55,7 +55,7 @@ export const updateLike = /* GraphQL */ `
         job
         school
         interests
-        newUser
+        photos
         createdAt
         updatedAt
         _version
@@ -92,7 +92,7 @@ export const deleteLike = /* GraphQL */ `
         job
         school
         interests
-        newUser
+        photos
         createdAt
         updatedAt
         _version
@@ -139,7 +139,7 @@ export const createUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
-      newUser
+      photos
       createdAt
       updatedAt
       _version
@@ -176,7 +176,7 @@ export const updateUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
-      newUser
+      photos
       createdAt
       updatedAt
       _version
@@ -213,7 +213,7 @@ export const deleteUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
-      newUser
+      photos
       createdAt
       updatedAt
       _version

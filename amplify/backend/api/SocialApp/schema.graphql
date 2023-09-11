@@ -17,6 +17,6 @@ type Users @model @auth(rules: [{allow: public}]) {
   school: String
   interests: [String]
   myLikes: Like @hasOne(fields: ["id"])
-  newUser: Boolean
+  photos: [String]
 }
  

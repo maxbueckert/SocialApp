@@ -15,7 +15,7 @@ export const getLike = /* GraphQL */ `
         job
         school
         interests
-        newUser
+        photos
         createdAt
         updatedAt
         _version
@@ -115,7 +115,7 @@ export const getUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
-      newUser
+      photos
       createdAt
       updatedAt
       _version
@@ -142,7 +142,7 @@ export const listUsers = /* GraphQL */ `
         job
         school
         interests
-        newUser
+        photos
         createdAt
         updatedAt
         _version
@@ -179,7 +179,7 @@ export const syncUsers = /* GraphQL */ `
         job
         school
         interests
-        newUser
+        photos
         createdAt
         updatedAt
         _version

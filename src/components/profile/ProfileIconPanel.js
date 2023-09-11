@@ -15,10 +15,7 @@ export default function ProfileIconPanel({navigation}) {
     const { userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto , userInterests} = useContext(UserContext);
 
 
-
-
-    // console.log("display: ", displayPhoto);  
-    // const fakeInterests = [" Hiking", "Reading", "Partying", "Running", "Snowing"]
+ 
 
 
     const [imageUrl, setImageUrl] = useState(null);
@@ -27,7 +24,8 @@ export default function ProfileIconPanel({navigation}) {
         try {
             const signedUrl = await Storage.get(userDisplayPhoto, { level: 'public' });
             setImageUrl(signedUrl);
-            console.log("refreshed");
+            console.log("display photo: " + userDisplayPhoto);
+            console.log("interests: " + userInterests);
         } catch (error) {
             console.error('Error fetching image', error);
         }

@@ -175,12 +175,13 @@ export const schema = {
                         ]
                     }
                 },
-                "newUser": {
-                    "name": "newUser",
-                    "isArray": false,
-                    "type": "Boolean",
+                "photos": {
+                    "name": "photos",
+                    "isArray": true,
+                    "type": "String",
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -228,5 +229,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "16161d5423091b6e61b3864e6f1cbd5b"
+    "version": "ebed66477e2a5c2402bc976288df175b"
 };
