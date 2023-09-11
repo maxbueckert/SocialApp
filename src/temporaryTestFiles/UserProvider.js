@@ -13,6 +13,9 @@ const UserProvider = ({ children }) => {
   const [userName, setUserName] = useState('');
   const [userAge, setUserAge] = useState(0);
   const [userJob, setUserJob] = useState('');
+  const [userIncomingFriendRequests, setUserIncomingFriendRequests] = useState([]);
+  const [userOutgoingFriendRequests, setUserOutgoingFriendRequests] = useState([]);
+  const [userFriends, setUserFriends] = useState([]);
   const [userSchool, setUserchool] = useState('');
   const [userDisplayPhoto, setUserDisplayPhoto] = useState(null);
   const [userInterests, setUserInterests] = useState([])
@@ -39,6 +42,9 @@ const UserProvider = ({ children }) => {
               const school = response.data.getUsers.school;
               const interests = response.data.getUsers.interests;
               const displayPhoto = response.data.getUsers.displayPhoto;
+              const incomingFriendRequests = response.data.getUsers.incomingFriendRequests;
+              const outgoingFriendRequests = response.data.getUsers.outgoingFriendRequests;
+              const friends = response.data.getUsers.friends;
               const photos = response.data.getUsers.photos;
               const _version = response.data.getUsers._version;
 
@@ -49,6 +55,9 @@ const UserProvider = ({ children }) => {
               setUserJob(job);
               setUserchool(school);
               setUserDisplayPhoto(displayPhoto);
+              setUserIncomingFriendRequests(!incomingFriendRequests? [] : incomingFriendRequests);
+              setUserOutgoingFriendRequests(!outgoingFriendRequests? [] : outgoingFriendRequests);
+              setUserFriends(!friends? [] : friends);
               setUserInterests(!interests? [] : interests);
               setUserPhotos(!photos? [] : photos);
               setUserVersion(_version);
@@ -61,6 +70,9 @@ const UserProvider = ({ children }) => {
             console.log("displayPhoto: " + displayPhoto);
             console.log("interests: " + interests);
             console.log("photos: " + photos);
+            console.log("incomingFriendRequests: " + incomingFriendRequests);
+            console.log("outgoingFriendRequests: " + outgoingFriendRequests);
+            console.log("friends: " + friends);
             console.log("_version: " + _version);
 
 
@@ -87,7 +99,7 @@ const UserProvider = ({ children }) => {
     }, []);
 
   return (
-    <UserContext.Provider value={{userId, userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto, setUserDisplayPhoto, userVersion, setUserVersion, userInterests , userPhotos, setUserPhotos}}>
+    <UserContext.Provider value={{userId, userEmail, userName, userAge, userJob, userSchool, userDisplayPhoto, setUserDisplayPhoto, userVersion, setUserVersion, userInterests , userPhotos, setUserPhotos, userFriends, setUserFriends, userIncomingFriendRequests, setUserIncomingFriendRequests, userOutgoingFriendRequests, setUserOutgoingFriendRequests}}>
       {children}
     </UserContext.Provider>
   );

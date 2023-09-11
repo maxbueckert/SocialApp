@@ -16,6 +16,9 @@ export const onCreateLike = /* GraphQL */ `
         school
         interests
         photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
         createdAt
         updatedAt
         _version
@@ -50,6 +53,9 @@ export const onUpdateLike = /* GraphQL */ `
         school
         interests
         photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
         createdAt
         updatedAt
         _version
@@ -84,6 +90,9 @@ export const onDeleteLike = /* GraphQL */ `
         school
         interests
         photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
         createdAt
         updatedAt
         _version
@@ -128,6 +137,9 @@ export const onCreateUsers = /* GraphQL */ `
         __typename
       }
       photos
+      friends
+      incomingFriendRequests
+      outgoingFriendRequests
       createdAt
       updatedAt
       _version
@@ -162,6 +174,9 @@ export const onUpdateUsers = /* GraphQL */ `
         __typename
       }
       photos
+      friends
+      incomingFriendRequests
+      outgoingFriendRequests
       createdAt
       updatedAt
       _version
@@ -196,6 +211,9 @@ export const onDeleteUsers = /* GraphQL */ `
         __typename
       }
       photos
+      friends
+      incomingFriendRequests
+      outgoingFriendRequests
       createdAt
       updatedAt
       _version

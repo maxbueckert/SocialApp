@@ -56,6 +56,9 @@ type EagerUsers = {
   readonly interests?: (string | null)[] | null;
   readonly myLikes?: Like | null;
   readonly photos?: (string | null)[] | null;
+  readonly friends?: (string | null)[] | null;
+  readonly incomingFriendRequests?: (string | null)[] | null;
+  readonly outgoingFriendRequests?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -76,6 +79,9 @@ type LazyUsers = {
   readonly interests?: (string | null)[] | null;
   readonly myLikes: AsyncItem<Like | undefined>;
   readonly photos?: (string | null)[] | null;
+  readonly friends?: (string | null)[] | null;
+  readonly incomingFriendRequests?: (string | null)[] | null;
+  readonly outgoingFriendRequests?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

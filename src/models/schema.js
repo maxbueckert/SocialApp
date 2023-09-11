@@ -183,6 +183,30 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "friends": {
+                    "name": "friends",
+                    "isArray": true,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "incomingFriendRequests": {
+                    "name": "incomingFriendRequests",
+                    "isArray": true,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "outgoingFriendRequests": {
+                    "name": "outgoingFriendRequests",
+                    "isArray": true,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -229,5 +253,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "ebed66477e2a5c2402bc976288df175b"
+    "version": "82e490fa84dff5c0de1f79911ee3c6b3"
 };
