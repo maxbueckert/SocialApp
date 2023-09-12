@@ -26,28 +26,48 @@ export default function AttributeScreen({route, navigation}) {
 
     const  { email, password, userSub } = route.params;
 
+    // function getRandomInt(min, max) {
+    //     return Math.floor(Math.random() * (max - min + 1)) + min;
+    // }
+
+    // const email = 'test@example.com';
+    // const password = '123'
+    // const userSub = `test_${getRandomInt(0, 10000)}`;
+
     const [userName, setUserName] = useState(null);
     const [userAge, setUserAge] = useState(0);
     const [userGender, setUserGender] = useState(null);
     const [userDisplayPhoto, setUserDisplayPhoto] = useState(null);
     const [userJob, setUserJob] = useState(null);
     const [userSchool, setUserchool] = useState(null);
-    const [userInterests, setUserInterests] = useState([])
+    const [userInterests, setUserInterests] = useState(null);
 
     const [showInterests, setShowInterests] = useState(false);
-    const isFirstRender = useRef(true); // This ref will determine if it's the first render
-
+    const isFirstRenderOne = useRef(true); // This ref will determine if it's the first render
+    const isFirstRenderTwo = useRef(true); 
 
     // after user enters school (the last text input field required), the interest panel will show up and allow
     // user to select interests
     useEffect(() => {
         // If it's the first render, just update the ref and skip the logic inside
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
+        if (isFirstRenderOne.current) {
+            isFirstRenderOne.current = false;
             return;
         }
         setShowInterests(true);
     }, [userSchool]);
+
+
+    // after user enters INTERESTS, we submit to database
+    useEffect(() => {
+        // If it's the first render, just update the ref and skip the logic inside
+        if (isFirstRenderTwo.current) {
+            isFirstRenderTwo.current = false;
+            return;
+        }
+        console.log("user interests:" + userInterests);
+        addToDatabase();
+    }, [userInterests]);
 
 
     // after user selects interests (the final step in user setup atm), the user is added to database, then logged in
@@ -130,7 +150,7 @@ export default function AttributeScreen({route, navigation}) {
 
             { showInterests && (
             <View>
-            <Interests setUserInterests = {setUserInterests} registerUser = {addToDatabase}></Interests>
+            <Interests setUserInterests = {setUserInterests}></Interests>
             </View>
             )}
 

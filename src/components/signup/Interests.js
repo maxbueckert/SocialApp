@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text , Button } from 'react-native';
 import { Chip } from 'react-native-paper';
 
-const InterestsChips = ({setUserInterests, registerUser}) => {
+const InterestsChips = ({setUserInterests}) => {
 
   const initialInterests = [
     'Hiking', 
@@ -27,13 +27,9 @@ const InterestsChips = ({setUserInterests, registerUser}) => {
   };
 
   const removeInterest = (interest) => {
-    setSelectedInterests(selectedInterests.filter(i => i !== interest));
+    setSelectedInterests(selectedInterests => selectedInterests.filter(i => i !== interest));
   };
 
-  const onSubmit = () => {
-    setUserInterests(selectedInterests);
-    registerUser();
-  }
 
 
 
@@ -54,7 +50,8 @@ const InterestsChips = ({setUserInterests, registerUser}) => {
   
       ))}
     </View>
-    <Button title = "Submit" onPress = {onSubmit}></Button>
+        {/* potential async bug here, setUserInterests before last chip is added to selectedInterests*/}
+    <Button title = "Submit" onPress = {() => setUserInterests(selectedInterests)}></Button>
     </View>
   );
 }

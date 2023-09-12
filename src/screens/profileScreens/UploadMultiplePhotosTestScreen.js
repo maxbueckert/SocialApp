@@ -36,7 +36,7 @@ export default function UploadPhotoScreen({navigation}) {
         const selectedUri = result.assets[0].uri;
         // const userInfo = await Auth.currentAuthenticatedUser();
         // const userId = userInfo.attributes.sub;
-        setSelectedImages([...selectedImages, selectedUri]);
+        setSelectedImages(prevSelectedImages => [...prevSelectedImages, selectedUri]);
         uploadToS3(userId, selectedUri);
       }
     };
@@ -107,7 +107,7 @@ export default function UploadPhotoScreen({navigation}) {
         <Image key={key} source={{ uri: image }} style={{ width: 200, height: 200 }} />
         ))}
 
-  <Button title="add image" onPress={pickImage} disabled={isUploading} />
+      <Button title="add image" onPress={pickImage} disabled={isUploading} />
        
     </ScrollView>
   );
