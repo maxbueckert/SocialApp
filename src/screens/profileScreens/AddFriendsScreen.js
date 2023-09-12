@@ -7,6 +7,7 @@ import Header from '../../components/header/Header.js';
 import { listUsers } from '../../graphql/queries.js';
 import { UserContext } from '../../temporaryTestFiles/UserProvider.js'
 import { updateUsers } from '../../graphql/mutations.js';
+import { onUpdateUsers } from '../../graphql/subscriptions.js';
 
 
 
@@ -23,7 +24,7 @@ export default function AddFriendsScreen() {
             // grab all users
             const userData = await API.graphql(graphqlOperation(listUsers));
             // filter out the current user
-            filteredUsers = userData.data.listUsers.items.filter(user => user.id !== userId);
+            filteredUsers = userData.data.listUsers.items.filter(user => user.id !== userId && !userFriends.includes(user.id));
             setUsers(filteredUsers);
 
         } catch (error) {
@@ -100,6 +101,61 @@ export default function AddFriendsScreen() {
             console.error("Error accepting friend: ", error);
         }
     }
+
+    async function declineFriend(friendId) {
+        try {
+            const friendData = users.find(u => u.id === friendId);
+            if (!friendData) {
+                throw new Error("Friend not found!");
+            }
+    
+            // Setting up the subscription to listen for changes to the user's data
+            const subscription = API.graphql(
+                graphqlOperation(onUpdateUsers, {
+                    filter: {
+                        id: {
+                            eq: userId // You can adjust the filter according to your needs
+                        }
+                    }
+                })
+            ).subscribe({
+                next: (data) => {
+                    console.log('User data updated:', data);
+                    // Here, you can handle the updated data if required
+                }
+            });
+    
+            // Update the user's data (removing the friend request)
+            const updatedIncomingRequests = userIncomingFriendRequests.filter(id => id !== friendId);
+            const userUpdateInput = {
+                id: userId,
+                incomingFriendRequests: updatedIncomingRequests,
+                _version: userVersion
+            };
+    
+            setUserVersion(userVersion + 1);
+            
+            await API.graphql(graphqlOperation(updateUsers, { input: userUpdateInput }));
+    
+            // Update the friend's data (removing their outgoing request to this user)
+            const updatedOutgoingRequestsForFriend = (friendData.outgoingFriendRequests || []).filter(id => id !== userId);
+            const friendUpdateInput = {
+                id: friendId,
+                outgoingFriendRequests: updatedOutgoingRequestsForFriend,
+                _version: friendData._version
+            };
+            await API.graphql(graphqlOperation(updateUsers, { input: friendUpdateInput }));
+    
+            console.log("Declined friend request!");
+    
+            // Remember to unsubscribe when you no longer want updates
+            subscription.unsubscribe();
+    
+        } catch (error) {
+            console.error("Error declining friend: ", error);
+        }
+    }
+    
     
     
     return (
@@ -121,6 +177,7 @@ export default function AddFriendsScreen() {
                         <View key={friendId} style={styles.userContainer}>
                             <Text>{friendId}</Text>
                             <Button title="Accept Friend" onPress={() => acceptFriend(friendId)} />
+                            <Button title="Decline Friend" onPress={() => declineFriend(friendId)} />
                         </View>
                     ))
                 }
