@@ -16,6 +16,9 @@ export const getLike = /* GraphQL */ `
         school
         interests
         photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
         createdAt
         updatedAt
         _version
@@ -116,6 +119,9 @@ export const getUsers = /* GraphQL */ `
         __typename
       }
       photos
+      friends
+      incomingFriendRequests
+      outgoingFriendRequests
       createdAt
       updatedAt
       _version
@@ -143,6 +149,9 @@ export const listUsers = /* GraphQL */ `
         school
         interests
         photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
         createdAt
         updatedAt
         _version
@@ -180,6 +189,9 @@ export const syncUsers = /* GraphQL */ `
         school
         interests
         photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
         createdAt
         updatedAt
         _version

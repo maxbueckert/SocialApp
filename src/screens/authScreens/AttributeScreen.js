@@ -11,6 +11,7 @@ import Interests from '../../components/signup/Interests.js';
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { createUsers, createLike } from '../../graphql/mutations';
+import { getLike } from '../../graphql/queries';
 import { NavigationOutlined } from '@mui/icons-material';
 
 const poolData = {
@@ -63,6 +64,9 @@ export default function AttributeScreen({route, navigation}) {
                 job: userJob,
                 school: userSchool,
                 interests: userInterests,
+                friends: [], 
+                incomingFriendRequests: [],
+                outgoingFriendRequests: []
             };
             await API.graphql(graphqlOperation(createUsers, { input: newUser }));
             
@@ -76,6 +80,10 @@ export default function AttributeScreen({route, navigation}) {
             };
             await API.graphql(graphqlOperation(createLike, { input: newLike }));
             console.log("created new Like for User: " + newLike);
+            // log all newLike info
+
+            
+
             loginToNewAccount();
 
         } catch (error) {

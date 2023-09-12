@@ -7,6 +7,7 @@ import EditProfileScreen from './EditProfileScreen.js';
 import UploadPhotoScreen from './UploadPhotoScreen.js';
 import PicPreview from './PicPreview.js';
 import UploadMultiplePhotosTestScreen from './UploadMultiplePhotosTestScreen.js';
+import AddFriendsScreen from './AddFriendsScreen.js';
 
 
 const Stack = createStackNavigator();
@@ -21,6 +22,7 @@ export default function EntryProfileScreen() {
             <Stack.Screen name="UploadPhotoScreen" component={UploadPhotoScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="PicPreview" component={PicPreview} options={{ headerShown: false }}/>
             <Stack.Screen name="UploadMultiplePhotosTestScreen" component={UploadMultiplePhotosTestScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="AddFriendsScreen" component={AddFriendsScreen} options={{ headerShown: false }}/>
         </Stack.Navigator>
         </View>
     );

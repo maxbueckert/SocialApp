@@ -18,5 +18,8 @@ type Users @model @auth(rules: [{allow: public}]) {
   interests: [String]
   myLikes: Like @hasOne(fields: ["id"])
   photos: [String]
+  friends: [ID]
+  incomingFriendRequests: [ID]
+  outgoingFriendRequests: [ID]
 }
  

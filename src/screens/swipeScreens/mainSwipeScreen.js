@@ -3,11 +3,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../temporaryTestFiles/UserProvider.js';
 import { Text, View } from 'react-native';
 import Header from '../../components/header/Header.js';
-import { listUsers, getLike } from '../../graphql/queries.js';
+import { listUsers, getLike, listLikes } from '../../graphql/queries.js';
 import { API, graphqlOperation } from 'aws-amplify';
 import { FlatList } from 'react-native-gesture-handler';
 import { Button } from 'react-native';
 import { updateLike, createConnection } from '../../graphql/mutations.js';
+import { Navigation } from '@mui/icons-material';
+
 
 export default function MainSwipeScreen() {
     // store list of all users
@@ -17,6 +19,7 @@ export default function MainSwipeScreen() {
     const likeId = "ee1dbb19-006c-4fb5-a70d-7d2008fa9df9"
     const likeeId = "b8f1f360-0081-70cd-7699-303a3708081b"
     const potentialMatchLikeID = "83f628c1-0176-4d1d-8da4-cccc37f6ae7a"
+    const likeIDFIXED = "58916320-8021-709b-deda-a919743f2649"
 
     // trigger fetchUsers() when component loads
     useEffect(() => {
@@ -94,12 +97,31 @@ export default function MainSwipeScreen() {
         }
     }
 
+    async function searchFor() {
+        try {
+            // get like entry with likeidfixed
+            const result = await API.graphql(graphqlOperation(getLike, { id: likeIDFIXED }));
+            console.log("Like entry:", result);
+
+            //list all likes
+            const likeData = await API.graphql(graphqlOperation(listLikes));
+            // list all items ids
+            const likeItems = likeData.data.listLikes.items;     
+            likeItems.forEach(item => console.log(item.likerID));
+         }
+
+        catch (error) {
+            console.error("Error searching for like:", error);
+        }
+    }
+
 
 
     return (
         <View style={{ flex: 1 }}>
             <Header></Header>
             <Button title="Like" onPress={checkForMatch} />
+            <Button title="Seach" onPress={searchFor} />
         </View>
     );
 }
