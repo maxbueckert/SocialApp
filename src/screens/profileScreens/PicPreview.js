@@ -17,7 +17,7 @@ export default function PicPreview({ navigation }) {
             const photoKey = response.data.getUsers.displayPhoto;
 
             // Retrieve the signed URL for the image from S3
-            const signedUrl = await Storage.get(photoKey, { level: 'public' });
+            // const signedUrl = await Storage.get(photoKey, { level: 'public' });
 
             setImageUrl(signedUrl);
         } catch (error) {
@@ -26,7 +26,7 @@ export default function PicPreview({ navigation }) {
     };
 
     useEffect(() => {
-        fetchImage();
+        // fetchImage();
     }, []);
 
     return (

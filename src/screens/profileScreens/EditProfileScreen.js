@@ -26,7 +26,7 @@ export default function EditProfileScreen({navigation}) {
         <Text>EDITING PROFILE</Text>
         <Button onPress = {() => {navigation.navigate("ViewProfileScreen")}} title = "Go Back To Profile"></Button>
         <Button onPress = {() => {navigation.navigate("UploadPhotoScreen")}} title = "Edit Display Photo"></Button>
-        {/* <Button onPress = {() => {navigation.navigate("PicPreview")}} title = "View Photo"></Button> */}
+        <Button onPress = {() => {navigation.navigate("PicPreview")}} title = "View Photo"></Button>
         <Button onPress = {() => {navigation.navigate("UploadMultiplePhotosTestScreen")}} title = "Upload Photo"></Button>
         <Button onPress = {() => {navigation.navigate("AddFriendsScreen")}} title = "Add Friends"></Button>
         <Button onPress={signOut} title="Log Out"></Button>
