@@ -4,7 +4,7 @@ import { listUsers, getUsers } from '../graphql/queries.js'
 import { updateUsers } from '../graphql/mutations.js';
 import { onUpdateUsers } from '../graphql/subscriptions.js';
 
-const useFriendActions = (userId, userVersion, setUserVersion) => {
+const useFriendActions = (userId) => {
     const [users, setUsers] = useState([]);
     const [userOutgoingFriendRequests, setUserOutgoingFriendRequests] = useState([]);
     const [userIncomingFriendRequests, setUserIncomingFriendRequests] = useState([]);
@@ -77,9 +77,6 @@ const useFriendActions = (userId, userVersion, setUserVersion) => {
                 outgoingFriendRequests: friendId,
             };
             await API.graphql(graphqlOperation(updateUsers, { input: newOutgoingFriendRequest }));
-
-            setUserVersion(userVersion + 1)
-
 
             const newIncomingFriendRequest = {
                 id: friendId,

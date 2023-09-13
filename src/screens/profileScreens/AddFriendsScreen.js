@@ -9,19 +9,19 @@ import useFriendActions from '../../hooks/useFriendActions.js';
 
 
 export default function AddFriendsScreen() {
-    const { userId, userVersion, setUserVersion } = useContext(UserContext);
+    const { userId } = useContext(UserContext);
 
     const {
-        users,
-        userOutgoingFriendRequests,
-        userIncomingFriendRequests,
-        userFriends,
-        addFriend,
-        cancelFriend,
-        removeFriend,
-        acceptFriendRequest,
-        declineFriendRequest,
-    } = useFriendActions(userId, userVersion, setUserVersion);
+        users, // all addable users (excludes friends, incoming requests, outgoing requests, and self)
+        userOutgoingFriendRequests, // list of Ids
+        userIncomingFriendRequests,// list of Ids
+        userFriends, // list of friendIds
+        addFriend, // send friend a friend request. Call with addFriend(friendId)
+        cancelFriend, // cancel outgoing request. Call with cancelFriend(friendId)
+        removeFriend, // delete friend. Call with removeFriend(friendId)
+        acceptFriendRequest, // accept incoming request. Call with acceptFriendRequest(friendId)
+        declineFriendRequest, // decline incoming request. Call with declineFriendRequest(friendId)
+    } = useFriendActions(userId);
     
     return (
         <View style={styles.container}>
