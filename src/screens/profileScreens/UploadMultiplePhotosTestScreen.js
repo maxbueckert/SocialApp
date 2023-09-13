@@ -58,13 +58,13 @@ export default function UploadPhotoScreen({navigation}) {
         
         
         try {
-          const storageResponse = await Storage.put(uniqueFileName, blob, {
-              level: 'public',
-              contentType: 'image/jpeg',
-          });           
+          // const storageResponse = await Storage.put(uniqueFileName, blob, {
+          //     level: 'public',
+          //     contentType: 'image/jpeg',
+          // });           
 
           // get the key 
-          const photoKey = storageResponse.key;
+          // const photoKey = storageResponse.key;
           console.log("S3 key: " + photoKey);
 
           // update the new photo to database
