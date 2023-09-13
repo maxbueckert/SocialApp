@@ -5,6 +5,8 @@ import { getUsers } from '../graphql/queries';
 import { Auth } from 'aws-amplify';
 import { Navigation, SignalCellularNullSharp } from '@mui/icons-material';
 
+
+
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
