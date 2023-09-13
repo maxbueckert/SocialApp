@@ -9,16 +9,12 @@ import { UserContext } from '../../temporaryTestFiles/UserProvider.js'
 import { updateUsers } from '../../graphql/mutations.js';
 import { onUpdateUsers } from '../../graphql/subscriptions.js';
 
-
-
 export default function AddFriendsScreen() {
     const [users, setUsers] = useState([]);
     const [userOutgoingFriendRequests, setUserOutgoingFriendRequests] = useState([]);
     const [userIncomingFriendRequests, setUserIncomingFriendRequests] = useState([]);
     const [userFriends, setUserFriends] = useState([]);
-//     const [addableUsers, setAddableUsers] = useState([]);
     const { userId, userVersion, setUserVersion } = useContext(UserContext);
-    const [triggerRefresh, setTriggerRefresh] = useState(false);
 
     useEffect(() => {
         
@@ -33,8 +29,13 @@ export default function AddFriendsScreen() {
             })
         ).subscribe({
             next: (data) => {
-                // console.log('User data updated:', data);Thes
-                // Handle the updated data appropriately if needed
+                const updatedUser = data.value.data.onUpdateUsers;
+                setUserFriends(updatedUser.friends);
+                setUserIncomingFriendRequests(updatedUser.incomingFriendRequests);
+                setUserOutgoingFriendRequests(updatedUser.outgoingFriendRequests);
+    
+                fetchUsers()
+
             }
         });
 
@@ -44,7 +45,7 @@ export default function AddFriendsScreen() {
         return () => {
             subscription.unsubscribe();
         };
-    }, [triggerRefresh]);
+    }, []);
 
     async function fetchUsers() {
         try {
@@ -73,7 +74,6 @@ export default function AddFriendsScreen() {
         }
     }
 
-
     async function addFriend(friendId) {
         try {
             // this will update the request simply by adding the friendId to the outgoingFriendRequests array
@@ -93,7 +93,7 @@ export default function AddFriendsScreen() {
             await API.graphql(graphqlOperation(updateUsers, { input: newIncomingFriendRequest }));
 
             alert("Friend request sent!");
-            setTriggerRefresh(prev => !prev);
+
         } catch (error) {
             console.error("Error adding friend: ", error);
         }
@@ -104,7 +104,8 @@ export default function AddFriendsScreen() {
             
             const user = await API.graphql(graphqlOperation(getUsers, { id: userId }));
             const updatedRequests = user.data.getUsers.outgoingFriendRequests.filter(id => id !== friendId);
-            console.log("updatedRequests changed to in cancelfriend: ", updatedRequests);
+            const userVersion = user.data.getUsers._version;
+
 
             const newCancelFriendRequest = {
                 id: userId,
@@ -113,12 +114,10 @@ export default function AddFriendsScreen() {
             };
             await API.graphql(graphqlOperation(updateUsers, { input: newCancelFriendRequest }));
 
-            setUserVersion(userVersion + 1);
-
+        
             const friendData = await API.graphql(graphqlOperation(getUsers, { id: friendId }));
             const updatedIncomingRequests = friendData.data.getUsers.incomingFriendRequests.filter(id => id !== userId);
             const friendVersion = friendData.data.getUsers._version;
-            console.log("updatedIncomingRequests changed to in cancelfriend: ", updatedIncomingRequests);
 
             const newCancelFriendRequestForFriend = {
                 id: friendId,
@@ -129,7 +128,6 @@ export default function AddFriendsScreen() {
             await API.graphql(graphqlOperation(updateUsers, { input: newCancelFriendRequestForFriend }));
 
             alert("Friend request canceled!");
-            setTriggerRefresh(prev => !prev);
 
         } catch (error) {
             console.error("Error canceling friend request: ", error);
@@ -140,6 +138,7 @@ export default function AddFriendsScreen() {
         try {
             const user = await API.graphql(graphqlOperation(getUsers, { id: userId }));
             const updatedFriends = user.data.getUsers.friends.filter(id => id !== friendId);
+            const userVersion = user.data.getUsers._version;
     
             const newRemoveFriend = {
                 id: userId,
@@ -149,7 +148,6 @@ export default function AddFriendsScreen() {
     
             await API.graphql(graphqlOperation(updateUsers, { input: newRemoveFriend }));
     
-            setUserVersion(userVersion + 1);
     
             const friendData = await API.graphql(graphqlOperation(getUsers, { id: friendId }));
             const updatedFriendsForFriend = friendData.data.getUsers.friends.filter(id => id !== userId);
@@ -164,7 +162,6 @@ export default function AddFriendsScreen() {
             await API.graphql(graphqlOperation(updateUsers, { input: newRemoveFriendForFriend }));
     
             alert("Friend removed!");
-            setTriggerRefresh(prev => !prev);
 
         } catch (error) {
             console.error("Error removing friend: ", error);
@@ -177,6 +174,7 @@ export default function AddFriendsScreen() {
             const user = await API.graphql(graphqlOperation(getUsers, { id: userId }));
             const updatedIncomingRequests = user.data.getUsers.incomingFriendRequests.filter(id => id !== friendId);
             const updatedFriends = user.data.getUsers.friends.concat(friendId);
+            const userVersion = user.data.getUsers._version;
 
             const newAcceptFriendRequest = {
                 id: userId,
@@ -185,7 +183,6 @@ export default function AddFriendsScreen() {
                 _version: userVersion
             } 
             await API.graphql(graphqlOperation(updateUsers, { input: newAcceptFriendRequest }));
-            setUserVersion(userVersion + 1);
 
             const friendData = await API.graphql(graphqlOperation(getUsers, { id: friendId }));
             const updatedOutgoingRequests = friendData.data.getUsers.outgoingFriendRequests.filter(id => id !== userId);
@@ -201,7 +198,6 @@ export default function AddFriendsScreen() {
             await API.graphql(graphqlOperation(updateUsers, { input: newAcceptFriendRequestForFriend }));
 
             alert("Friend request accepted!");
-            setTriggerRefresh(prev => !prev);
             
         } catch (error) {
             console.error("Error accepting friend request: ", error);
@@ -214,6 +210,7 @@ export default function AddFriendsScreen() {
         try{
             const user = await API.graphql(graphqlOperation(getUsers, { id: userId }));
             const updatedIncomingRequests = user.data.getUsers.incomingFriendRequests.filter(id => id !== friendId);
+            const userVersion = user.data.getUsers._version;
             
             const newDeclineFriendRequest = {
                 id: userId,
@@ -221,7 +218,6 @@ export default function AddFriendsScreen() {
                 _version: userVersion
             }
             await API.graphql(graphqlOperation(updateUsers, { input: newDeclineFriendRequest }));
-            setUserVersion(userVersion + 1);
 
             const friendData = await API.graphql(graphqlOperation(getUsers, { id: friendId }));
             const updatedOutgoingRequests = friendData.data.getUsers.outgoingFriendRequests.filter(id => id !== userId);
@@ -235,7 +231,6 @@ export default function AddFriendsScreen() {
             await API.graphql(graphqlOperation(updateUsers, { input: newDeclineFriendRequestForFriend }));
 
             alert("Friend request declined!");
-            setTriggerRefresh(prev => !prev);
 
         } catch (error) {
             console.error("Error declining friend request: ", error);
