@@ -14,6 +14,8 @@ import { createUsers, createLike } from '../../graphql/mutations';
 import { getLike } from '../../graphql/queries';
 import { NavigationOutlined } from '@mui/icons-material';
 
+import useSignUpActions from '../../hooks/useSignUpActions.js';
+
 const poolData = {
     UserPoolId: 'us-west-2_ZoUst2VmH',
     ClientId: '5dtn41m68s3s07uh8r1cs0id1f'
@@ -23,24 +25,17 @@ const poolData = {
 const userPool = new CognitoUserPool(poolData);
 
 export default function AttributeScreen({route, navigation}) {
-
     const  { email, password, userSub } = route.params;
 
-    // function getRandomInt(min, max) {
-    //     return Math.floor(Math.random() * (max - min + 1)) + min;
-    // }
-
-    // const email = 'test@example.com';
-    // const password = '123'
-    // const userSub = `test_${getRandomInt(0, 10000)}`;
-
-    const [userName, setUserName] = useState(null);
-    const [userAge, setUserAge] = useState(0);
-    const [userGender, setUserGender] = useState(null);
-    const [userDisplayPhoto, setUserDisplayPhoto] = useState(null);
-    const [userJob, setUserJob] = useState(null);
-    const [userSchool, setUserchool] = useState(null);
-    const [userInterests, setUserInterests] = useState(null);
+    const {
+        userName, setUserName,
+        userAge, setUserAge,
+        userGender, setUserGender,
+        userJob, setUserJob,
+        userSchool, setUserSchool,
+        userInterests, setUserInterests,
+        addToDatabase
+    } = useSignUpActions(email, password, userSub);
 
     const [showInterests, setShowInterests] = useState(false);
     const isFirstRenderOne = useRef(true); // This ref will determine if it's the first render
@@ -57,7 +52,6 @@ export default function AttributeScreen({route, navigation}) {
         setShowInterests(true);
     }, [userSchool]);
 
-
     // after user enters INTERESTS, we submit to database
     useEffect(() => {
         // If it's the first render, just update the ref and skip the logic inside
@@ -68,63 +62,6 @@ export default function AttributeScreen({route, navigation}) {
         console.log("user interests:" + userInterests);
         addToDatabase();
     }, [userInterests]);
-
-
-    // after user selects interests (the final step in user setup atm), the user is added to database, then logged in
-    // NOTE** This code (and logInToNewAccount) should probably be abstracted into a new file
-    async function addToDatabase() {
-        try {
-            // add User entry to DB
-            const newUser = {
-                id: userSub,  // Use the passed in userSub
-                name: userName,
-                email: email,
-                age: parseInt(userAge),
-                gender: userGender,
-                job: userJob,
-                school: userSchool,
-                interests: userInterests,
-                friends: [], 
-                incomingFriendRequests: [],
-                outgoingFriendRequests: []
-            };
-            await API.graphql(graphqlOperation(createUsers, { input: newUser }));
-            
-            console.log("created new User: " + newUser);
-
-            // add Like entry for user to DB
-            const newLike = {
-                likerID: newUser.id,
-                likes: [],  // initially, the likee list can be empty
-                matches: [] // initially, the matches list can be empty
-            };
-            await API.graphql(graphqlOperation(createLike, { input: newLike }));
-            console.log("created new Like for User: " + newLike);
-            // log all newLike info
-
-            
-
-            loginToNewAccount();
-
-        } catch (error) {
-            console.error("Error adding user to the database", error);
-        }
-    }
-    // see note for addToDatabase method above
-    async function loginToNewAccount() {
-        try {
-            const user = await Auth.signIn(email, password);
-            if (user && user.signInUserSession.isValid()) {
-                console.log('User is authenticated:', user);
-                navigation.navigate('MainScreen');
-            } else {
-                console.error('User could not be authenticated');
-            }
-        } catch (error) {
-            console.error('Authentication error:', error);
-        }
-    }
-    
 
     return (
         <View style={{ paddingTop: 200, flex : 1, alignItems : 'center', justifyContent : 'top' }}>
@@ -143,7 +80,7 @@ export default function AttributeScreen({route, navigation}) {
                     !userAge?  setUserAge :
                     !userGender?   setUserGender :
                     !userJob?      setUserJob :
-                    !userSchool?   setUserchool : null
+                    !userSchool?   setUserSchool : null
                 } 
             ></Question>
             )}
