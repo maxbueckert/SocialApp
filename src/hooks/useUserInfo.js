@@ -115,6 +115,50 @@ const useUserInfo = (userId) => {
         }
     }
 
+    // function to change name of user by id. If no id is provided, changes the name of the current user.
+    async function changeName(name, id = null) {
+        const targetId = id || userId; 
+        const user = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
+        try {
+            await API.graphql(graphqlOperation(updateUsers, { input: { id: targetId, name: name, _version: user.data.getUsers._version }}));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // function to change age of user by id. If no id is provided, changes the age of the current user.
+    async function changeAge(age, id = null) {
+        const targetId = id || userId; 
+        const user = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
+        try {
+            await API.graphql(graphqlOperation(updateUsers, { input: { id: targetId, age: age, _version: user.data.getUsers._version }}));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // function to change job of user by id. If no id is provided, changes the job of the current user.
+    async function changeJob(job, id = null) {
+        const targetId = id || userId; 
+        const user = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
+        try {
+            await API.graphql(graphqlOperation(updateUsers, { input: { id: targetId, job: job, _version: user.data.getUsers._version }}));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // function to change school of user by id. If no id is provided, changes the school of the current user.
+    async function changeSchool(school, id = null) {
+        const targetId = id || userId; 
+        const user = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
+        try {
+            await API.graphql(graphqlOperation(updateUsers, { input: { id: targetId, school: school, _version: user.data.getUsers._version }}));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return { 
         getEmail,
         getName,
@@ -122,7 +166,11 @@ const useUserInfo = (userId) => {
         getJob,
         getSchool,
         getInterests,
-        getFriends
+        getFriends,
+        changeName,
+        changeAge,
+        changeJob,
+        changeSchool
     };
 
 }

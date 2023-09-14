@@ -12,6 +12,7 @@ import useUserInfo from '../../hooks/useUserInfo.js';
 
 export default function AddFriendsScreen() {
     const { userId } = useContext(UserContext);
+    const { changeName, getName } = useUserInfo(userId);
 
     const {
         users, // all addable users (excludes friends, incoming requests, outgoing requests, and self)
@@ -24,11 +25,20 @@ export default function AddFriendsScreen() {
         acceptFriendRequest, // accept incoming request. Call with acceptFriendRequest(friendId)
         declineFriendRequest, // decline incoming request. Call with declineFriendRequest(friendId)
     } = useFriendActions(userId);
+
+    async function something() {
+        const name = await getName('2831a320-f051-7042-f36d-d2e0e390f6c3')
+        console.log('name is: ' + name)
+        await changeName('new name', '2831a320-f051-7042-f36d-d2e0e390f6c3')
+        const name2 = await getName('2831a320-f051-7042-f36d-d2e0e390f6c3')
+        console.log('name is: ' + name2)
+    }
     
     return (
         <View style={styles.container}>
             <Header />
             <ScrollView>
+                <Button title='change name' onPress={something} />
                 <Text>Find Friends</Text>
                 {
                     users.map(user => (
