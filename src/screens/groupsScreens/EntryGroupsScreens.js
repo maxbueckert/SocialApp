@@ -21,6 +21,7 @@ export default function EntryProfileScreen() {
 
   useEffect(() => {
     async function fetchGroups() {
+        alert("dont worry about errors here");
         const fetchedGroups = await getGroups();
         setGroups(fetchedGroups);
         const fetchedIncomingGroupInvites = await getIncomingGroupInvites();
