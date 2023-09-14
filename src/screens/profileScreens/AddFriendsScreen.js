@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import { API, graphqlOperation } from 'aws-amplify';
 
@@ -6,6 +6,8 @@ import Header from '../../components/header/Header.js';
 
 import { UserContext } from '../../temporaryTestFiles/UserProvider.js'
 import useFriendActions from '../../hooks/useFriendActions.js';
+
+import useUserInfo from '../../hooks/useUserInfo.js';
 
 
 export default function AddFriendsScreen() {

@@ -1,18 +1,11 @@
 import React, { useState , useEffect, useRef} from 'react';
-import { View, Button, Alert } from 'react-native';
-import { CognitoUser, AuthenticationDetails , CognitoUserPool} from 'amazon-cognito-identity-js';
-import { TextInput } from 'react-native-paper';
-import { Auth } from 'aws-amplify';
+import { View } from 'react-native';
 
+import { CognitoUser, AuthenticationDetails , CognitoUserPool} from 'amazon-cognito-identity-js';
 import Header from '../../components/header/Header.js';
 import AuthTitle from '../../components/signup/AuthTitle.js'
 import Question from '../../components/signup/Question.js';
 import Interests from '../../components/signup/Interests.js';
-
-import { API, graphqlOperation } from 'aws-amplify';
-import { createUsers, createLike } from '../../graphql/mutations';
-import { getLike } from '../../graphql/queries';
-import { NavigationOutlined } from '@mui/icons-material';
 
 import useSignUpActions from '../../hooks/useSignUpActions.js';
 
