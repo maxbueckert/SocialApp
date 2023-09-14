@@ -35,8 +35,6 @@ const useUserInfo = (userId) => {
         try {
             const response = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
             const email = response.data.getUsers.email;
-            console.log("email in hook: ", email);
-            setUserEmail(email);
             return email;
         } catch (error) {
             console.log(error);
@@ -185,7 +183,6 @@ const useUserInfo = (userId) => {
         }
     }
     
-
     return { 
         getEmail,
         getName,

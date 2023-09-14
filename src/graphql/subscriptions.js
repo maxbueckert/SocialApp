@@ -15,6 +15,8 @@ export const onCreateLike = /* GraphQL */ `
         job
         school
         interests
+        groups
+        incomingGroupInvites
         photos
         friends
         incomingFriendRequests
@@ -52,6 +54,8 @@ export const onUpdateLike = /* GraphQL */ `
         job
         school
         interests
+        groups
+        incomingGroupInvites
         photos
         friends
         incomingFriendRequests
@@ -89,6 +93,8 @@ export const onDeleteLike = /* GraphQL */ `
         job
         school
         interests
+        groups
+        incomingGroupInvites
         photos
         friends
         incomingFriendRequests
@@ -136,6 +142,13 @@ export const onCreateUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      myGroups {
+        nextToken
+        startedAt
+        __typename
+      }
+      groups
+      incomingGroupInvites
       photos
       friends
       incomingFriendRequests
@@ -173,6 +186,13 @@ export const onUpdateUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      myGroups {
+        nextToken
+        startedAt
+        __typename
+      }
+      groups
+      incomingGroupInvites
       photos
       friends
       incomingFriendRequests
@@ -210,6 +230,13 @@ export const onDeleteUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      myGroups {
+        nextToken
+        startedAt
+        __typename
+      }
+      groups
+      incomingGroupInvites
       photos
       friends
       incomingFriendRequests
@@ -219,6 +246,126 @@ export const onDeleteUsers = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateGroup = /* GraphQL */ `
+  subscription OnCreateGroup($filter: ModelSubscriptionGroupFilterInput) {
+    onCreateGroup(filter: $filter) {
+      id
+      creator
+      creatorUser {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        groups
+        incomingGroupInvites
+        photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      outgoingInvites
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      usersMyGroupsId
+      __typename
+    }
+  }
+`;
+export const onUpdateGroup = /* GraphQL */ `
+  subscription OnUpdateGroup($filter: ModelSubscriptionGroupFilterInput) {
+    onUpdateGroup(filter: $filter) {
+      id
+      creator
+      creatorUser {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        groups
+        incomingGroupInvites
+        photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      outgoingInvites
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      usersMyGroupsId
+      __typename
+    }
+  }
+`;
+export const onDeleteGroup = /* GraphQL */ `
+  subscription OnDeleteGroup($filter: ModelSubscriptionGroupFilterInput) {
+    onDeleteGroup(filter: $filter) {
+      id
+      creator
+      creatorUser {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        groups
+        incomingGroupInvites
+        photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      outgoingInvites
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      usersMyGroupsId
       __typename
     }
   }

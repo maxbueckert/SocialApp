@@ -7,12 +7,8 @@ import Header from '../../components/header/Header.js';
 import { UserContext } from '../../temporaryTestFiles/UserProvider.js'
 import useFriendActions from '../../hooks/useFriendActions.js';
 
-import useUserInfo from '../../hooks/useUserInfo.js';
-
-
 export default function AddFriendsScreen() {
     const { userId } = useContext(UserContext);
-    const { addInterest, removeInterest } = useUserInfo(userId);
 
     const {
         users, // all addable users (excludes friends, incoming requests, outgoing requests, and self)
@@ -25,16 +21,11 @@ export default function AddFriendsScreen() {
         acceptFriendRequest, // accept incoming request. Call with acceptFriendRequest(friendId)
         declineFriendRequest, // decline incoming request. Call with declineFriendRequest(friendId)
     } = useFriendActions(userId);
-
-    async function something() {
-        // removeInterest("testw");
-    }
     
     return (
         <View style={styles.container}>
             <Header />
             <ScrollView>
-                <Button title='test button' onPress={something} />
                 <Text>Find Friends</Text>
                 {
                     users.map(user => (

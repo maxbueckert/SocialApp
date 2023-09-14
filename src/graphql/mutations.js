@@ -18,6 +18,8 @@ export const createLike = /* GraphQL */ `
         job
         school
         interests
+        groups
+        incomingGroupInvites
         photos
         friends
         incomingFriendRequests
@@ -58,6 +60,8 @@ export const updateLike = /* GraphQL */ `
         job
         school
         interests
+        groups
+        incomingGroupInvites
         photos
         friends
         incomingFriendRequests
@@ -98,6 +102,8 @@ export const deleteLike = /* GraphQL */ `
         job
         school
         interests
+        groups
+        incomingGroupInvites
         photos
         friends
         incomingFriendRequests
@@ -148,6 +154,13 @@ export const createUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      myGroups {
+        nextToken
+        startedAt
+        __typename
+      }
+      groups
+      incomingGroupInvites
       photos
       friends
       incomingFriendRequests
@@ -188,6 +201,13 @@ export const updateUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      myGroups {
+        nextToken
+        startedAt
+        __typename
+      }
+      groups
+      incomingGroupInvites
       photos
       friends
       incomingFriendRequests
@@ -228,6 +248,13 @@ export const deleteUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      myGroups {
+        nextToken
+        startedAt
+        __typename
+      }
+      groups
+      incomingGroupInvites
       photos
       friends
       incomingFriendRequests
@@ -237,6 +264,135 @@ export const deleteUsers = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const createGroup = /* GraphQL */ `
+  mutation CreateGroup(
+    $input: CreateGroupInput!
+    $condition: ModelGroupConditionInput
+  ) {
+    createGroup(input: $input, condition: $condition) {
+      id
+      creator
+      creatorUser {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        groups
+        incomingGroupInvites
+        photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      outgoingInvites
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      usersMyGroupsId
+      __typename
+    }
+  }
+`;
+export const updateGroup = /* GraphQL */ `
+  mutation UpdateGroup(
+    $input: UpdateGroupInput!
+    $condition: ModelGroupConditionInput
+  ) {
+    updateGroup(input: $input, condition: $condition) {
+      id
+      creator
+      creatorUser {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        groups
+        incomingGroupInvites
+        photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      outgoingInvites
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      usersMyGroupsId
+      __typename
+    }
+  }
+`;
+export const deleteGroup = /* GraphQL */ `
+  mutation DeleteGroup(
+    $input: DeleteGroupInput!
+    $condition: ModelGroupConditionInput
+  ) {
+    deleteGroup(input: $input, condition: $condition) {
+      id
+      creator
+      creatorUser {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        groups
+        incomingGroupInvites
+        photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      outgoingInvites
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      usersMyGroupsId
       __typename
     }
   }
