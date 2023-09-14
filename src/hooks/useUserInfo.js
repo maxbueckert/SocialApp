@@ -42,6 +42,31 @@ const useUserInfo = (userId) => {
     }
 
     // returns the name of user by id. If no id is provided, returns the name of the current user.
+    async function getGroups(id = null) {
+        const targetId = id || userId; 
+        try {
+            const response = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
+            const groups = response.data.getUsers.groups;
+            return groups;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // function to get incoming group invites
+        async function getIncomingGroupInvites(id = null) {
+            const targetId = id || userId;
+                try {
+                    const response = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
+                    const groups = response.data.getUsers.incomingGroupInvites;
+                    return groups;
+                } catch (error) {
+                    console.log(error);
+                }
+        }
+    
+
+    // returns the name of user by id. If no id is provided, returns the name of the current user.
     async function getName(id = null) {
         const targetId = id || userId; 
         try {
@@ -191,12 +216,14 @@ const useUserInfo = (userId) => {
         getSchool,
         getInterests,
         getFriends,
+        getGroups,
+        getIncomingGroupInvites,
         changeName,
         changeAge,
         changeJob,
         changeSchool,
         addInterest,
-        removeInterest
+        removeInterest,
     };
 
 }

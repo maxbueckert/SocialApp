@@ -62,7 +62,9 @@ const useSignUpActions = (email, password, userSubFromRoute) => {
                 interests: userInterests,
                 friends: [], 
                 incomingFriendRequests: [],
-                outgoingFriendRequests: []
+                outgoingFriendRequests: [],
+                incomingGroupInvites: [],
+                groups: []
             };
             await API.graphql(graphqlOperation(createUsers, { input: newUser }));
 
