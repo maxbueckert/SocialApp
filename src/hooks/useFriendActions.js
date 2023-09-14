@@ -23,10 +23,9 @@ const useFriendActions = (userId) => {
         ).subscribe({
             next: (data) => {
                 const updatedUser = data.value.data.onUpdateUsers;
-                setUserFriends(updatedUser.friends);
-                setUserIncomingFriendRequests(updatedUser.incomingFriendRequests);
-                setUserOutgoingFriendRequests(updatedUser.outgoingFriendRequests);
-    
+                setUserFriends(updatedUser.friends || []);
+                setUserIncomingFriendRequests(updatedUser.incomingFriendRequests || []);
+                setUserOutgoingFriendRequests(updatedUser.outgoingFriendRequests || []);
                 fetchUsers()
                 
             }
@@ -43,13 +42,13 @@ const useFriendActions = (userId) => {
             const userData = await API.graphql(graphqlOperation(listUsers));
             // get user outgoing friend requests
             const user = await API.graphql(graphqlOperation(getUsers, { id: userId }));
-            const outgoingRequests = user.data.getUsers.outgoingFriendRequests;
+            const outgoingRequests = user.data.getUsers.outgoingFriendRequests || [];
             setUserOutgoingFriendRequests(outgoingRequests);
             // get user incoming friend requests
-            const incomingRequests = user.data.getUsers.incomingFriendRequests;
+            const incomingRequests = user.data.getUsers.incomingFriendRequests || [];
             setUserIncomingFriendRequests(incomingRequests);
             // get user friends
-            const friends = user.data.getUsers.friends;
+            const friends = user.data.getUsers.friends || [];
             setUserFriends(friends);
             // filter users for viewing addable friends
             const filteredUsers = userData.data.listUsers.items.filter(u => u.id !== userId && !outgoingRequests.includes(u.id) && !incomingRequests.includes(u.id) && !friends.includes(u.id));
@@ -58,7 +57,7 @@ const useFriendActions = (userId) => {
             setUsers(filteredUsers);
             console.log("Refreshed.");
         } catch (error) {
-            console.error("Error fetching users: ", error);
+            console.error("Error fetching users here!!!!: ", error);
         }
     }
 

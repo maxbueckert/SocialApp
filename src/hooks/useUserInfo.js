@@ -159,6 +159,33 @@ const useUserInfo = (userId) => {
         }
     }
 
+    // function to add to users interests by id. If no id is provided, adds to the interests of the current user.
+    async function addInterest(interest, id = null) {
+        const targetId = id || userId; 
+        const user = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
+        const interests = user.data.getUsers.interests;
+        interests.push(interest);
+        try {
+            await API.graphql(graphqlOperation(updateUsers, { input: { id: targetId, interests: interests, _version: user.data.getUsers._version }}));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // function to remove from users interests by id. If no id is provided, removes from the interests of the current user.
+    async function removeInterest(interestToRemove, id = null) {
+        const targetId = id || userId; 
+        const user = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
+        const interests = user.data.getUsers.interests;
+        const updatedInterests = interests.filter(interest => interest !== interestToRemove);  // Change variable name here
+        try {
+            await API.graphql(graphqlOperation(updateUsers, { input: { id: targetId, interests: updatedInterests, _version: user.data.getUsers._version }}));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+
     return { 
         getEmail,
         getName,
@@ -170,7 +197,9 @@ const useUserInfo = (userId) => {
         changeName,
         changeAge,
         changeJob,
-        changeSchool
+        changeSchool,
+        addInterest,
+        removeInterest
     };
 
 }
