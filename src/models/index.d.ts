@@ -106,7 +106,9 @@ type EagerGroup = {
   readonly id: string;
   readonly creator: string;
   readonly creatorUser?: Users | null;
+  readonly name?: string | null;
   readonly outgoingInvites?: (string | null)[] | null;
+  readonly matchedGroups?: (string | null)[] | null;
   readonly members?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -121,7 +123,9 @@ type LazyGroup = {
   readonly id: string;
   readonly creator: string;
   readonly creatorUser: AsyncItem<Users | undefined>;
+  readonly name?: string | null;
   readonly outgoingInvites?: (string | null)[] | null;
+  readonly matchedGroups?: (string | null)[] | null;
   readonly members?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

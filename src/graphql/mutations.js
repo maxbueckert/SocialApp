@@ -299,7 +299,9 @@ export const createGroup = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      name
       outgoingInvites
+      matchedGroups
       members
       createdAt
       updatedAt
@@ -342,7 +344,9 @@ export const updateGroup = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      name
       outgoingInvites
+      matchedGroups
       members
       createdAt
       updatedAt
@@ -385,7 +389,9 @@ export const deleteGroup = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      name
       outgoingInvites
+      matchedGroups
       members
       createdAt
       updatedAt

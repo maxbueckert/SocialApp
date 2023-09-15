@@ -246,7 +246,9 @@ export const getGroup = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      name
       outgoingInvites
+      matchedGroups
       members
       createdAt
       updatedAt
@@ -268,7 +270,9 @@ export const listGroups = /* GraphQL */ `
       items {
         id
         creator
+        name
         outgoingInvites
+        matchedGroups
         members
         createdAt
         updatedAt
@@ -300,7 +304,9 @@ export const syncGroups = /* GraphQL */ `
       items {
         id
         creator
+        name
         outgoingInvites
+        matchedGroups
         members
         createdAt
         updatedAt

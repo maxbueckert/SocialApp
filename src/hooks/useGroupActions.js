@@ -48,7 +48,7 @@ const useGroupInfo = (userId) => {
     async function createNewGroup(id = null) {
         const targetId = id || userId; 
         try {
-                const result = await API.graphql(graphqlOperation(createGroup, { input: { creator: targetId, members: targetId, outgoingInvites: [] } }));
+                const result = await API.graphql(graphqlOperation(createGroup, { input: { creator: targetId, matchedGroups: [], members: targetId, outgoingInvites: [] } }));
                 // get group id
                 const user = await API.graphql(graphqlOperation(getUsers, { id: targetId }));
                 const groups = user.data.getUsers.groups;
@@ -137,16 +137,71 @@ const useGroupInfo = (userId) => {
             }   
     }
 
-    
+    // function that will add eachtohers groupId to matched it 
+    async function matchGroups(groupId, groupId2) {
+        try {
+            const group1Data = await API.graphql(graphqlOperation(getGroup, { id: groupId }));
+            const matchedGroups = group1Data.data.getGroup.matchedGroups;
+            matchedGroups.push(groupId2);
+            await API.graphql(graphqlOperation(updateGroup, { input: { id: groupId, matchedGroups: matchedGroups, _version: group1Data.data.getGroup._version }}));
 
+            const group2Data = await API.graphql(graphqlOperation(getGroup, { id: groupId2 }));
+            const matchedGroups2 = group2Data.data.getGroup.matchedGroups;
+            matchedGroups2.push(groupId);
+            await API.graphql(graphqlOperation(updateGroup, { input: { id: groupId2, matchedGroups: matchedGroups2, _version: group2Data.data.getGroup._version }}));
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // function that will remove eachtohers groupId to matched it
+    async function unmatchGroups(groupId, groupId2) {
+        try {
+            const group1Data = await API.graphql(graphqlOperation(getGroup, { id: groupId }));
+            const matchedGroups = group1Data.data.getGroup.matchedGroups;
+            const updatedMatchedGroups = matchedGroups.filter(group => group !== groupId2);
+            await API.graphql(graphqlOperation(updateGroup, { input: { id: groupId, matchedGroups: updatedMatchedGroups, _version: group1Data.data.getGroup._version }}));
+
+            const group2Data = await API.graphql(graphqlOperation(getGroup, { id: groupId2 }));
+            const matchedGroups2 = group2Data.data.getGroup.matchedGroups;
+            const updatedMatchedGroups2 = matchedGroups2.filter(group => group !== groupId);
+            await API.graphql(graphqlOperation(updateGroup, { input: { id: groupId2, matchedGroups: updatedMatchedGroups2, _version: group2Data.data.getGroup._version }}));
+
+        } catch (error) {
+            console.log(error);
+            }
+    }
     
+    // function to change group name by group id 
+    async function changeGroupName(groupId, newName) {
+        try { 
+            await API.graphql(graphqlOperation(updateGroup, { input: { id: groupId, name: newName }}));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // function to get group name by group id
+    async function getGroupName(groupId) {
+        try {
+            const groupData = await API.graphql(graphqlOperation(getGroup, { id: groupId }));
+            return groupData.data.getGroup.name;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return { 
         createNewGroup,
         inviteUserToGroup,
         acceptGroupInvite,
         declineGroupInvite,
-        removeUserFromGroup
+        removeUserFromGroup,
+        matchGroups,
+        unmatchGroups, 
+        changeGroupName,
+        getGroupName
     };
 
 }

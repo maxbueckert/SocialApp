@@ -30,6 +30,8 @@ type Group @model @auth(rules: [{allow: public}]) {
   id: ID!
   creator: ID!
   creatorUser: Users @belongsTo(fields: ["creator"])
+  name: String
   outgoingInvites: [ID]
+  matchedGroups: [ID]
   members: [ID]
 }

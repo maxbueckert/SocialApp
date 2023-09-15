@@ -313,8 +313,23 @@ export const schema = {
                         ]
                     }
                 },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "outgoingInvites": {
                     "name": "outgoingInvites",
+                    "isArray": true,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "matchedGroups": {
+                    "name": "matchedGroups",
                     "isArray": true,
                     "type": "ID",
                     "isRequired": false,
@@ -382,5 +397,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "60e661a11ae844deeb83b8534d805473"
+    "version": "a56c73b7bfd7eef229938148ddbe1806"
 };
