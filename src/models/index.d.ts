@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncItem } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@aws-amplify/datastore";
 
 
 
@@ -55,6 +55,9 @@ type EagerUsers = {
   readonly school?: string | null;
   readonly interests?: (string | null)[] | null;
   readonly myLikes?: Like | null;
+  readonly myGroups?: (Group | null)[] | null;
+  readonly groups?: (string | null)[] | null;
+  readonly incomingGroupInvites?: (string | null)[] | null;
   readonly photos?: (string | null)[] | null;
   readonly friends?: (string | null)[] | null;
   readonly incomingFriendRequests?: (string | null)[] | null;
@@ -78,6 +81,9 @@ type LazyUsers = {
   readonly school?: string | null;
   readonly interests?: (string | null)[] | null;
   readonly myLikes: AsyncItem<Like | undefined>;
+  readonly myGroups: AsyncCollection<Group>;
+  readonly groups?: (string | null)[] | null;
+  readonly incomingGroupInvites?: (string | null)[] | null;
   readonly photos?: (string | null)[] | null;
   readonly friends?: (string | null)[] | null;
   readonly incomingFriendRequests?: (string | null)[] | null;
@@ -90,4 +96,44 @@ export declare type Users = LazyLoading extends LazyLoadingDisabled ? EagerUsers
 
 export declare const Users: (new (init: ModelInit<Users>) => Users) & {
   copyOf(source: Users, mutator: (draft: MutableModel<Users>) => MutableModel<Users> | void): Users;
+}
+
+type EagerGroup = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Group, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly creator: string;
+  readonly creatorUser?: Users | null;
+  readonly name?: string | null;
+  readonly outgoingInvites?: (string | null)[] | null;
+  readonly matchedGroups?: (string | null)[] | null;
+  readonly members?: (string | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly usersMyGroupsId?: string | null;
+}
+
+type LazyGroup = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Group, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly creator: string;
+  readonly creatorUser: AsyncItem<Users | undefined>;
+  readonly name?: string | null;
+  readonly outgoingInvites?: (string | null)[] | null;
+  readonly matchedGroups?: (string | null)[] | null;
+  readonly members?: (string | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly usersMyGroupsId?: string | null;
+}
+
+export declare type Group = LazyLoading extends LazyLoadingDisabled ? EagerGroup : LazyGroup
+
+export declare const Group: (new (init: ModelInit<Group>) => Group) & {
+  copyOf(source: Group, mutator: (draft: MutableModel<Group>) => MutableModel<Group> | void): Group;
 }

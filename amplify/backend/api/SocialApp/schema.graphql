@@ -17,9 +17,21 @@ type Users @model @auth(rules: [{allow: public}]) {
   school: String
   interests: [String]
   myLikes: Like @hasOne(fields: ["id"])
+  myGroups: [Group] @hasMany
+  groups: [ID]
+  incomingGroupInvites: [ID]
   photos: [String]
   friends: [ID]
   incomingFriendRequests: [ID]
   outgoingFriendRequests: [ID]
 }
- 
+
+type Group @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  creator: ID!
+  creatorUser: Users @belongsTo(fields: ["creator"])
+  name: String
+  outgoingInvites: [ID]
+  matchedGroups: [ID]
+  members: [ID]
+}

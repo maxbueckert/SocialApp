@@ -3,9 +3,6 @@ import { View, Button, Alert } from 'react-native';
 import { CognitoUser, CognitoUserPool} from 'amazon-cognito-identity-js';
 import { TextInput } from 'react-native-paper';
 
-import Header from '../../components/header/Header.js';
-import AuthTitle from '../../components/signup/AuthTitle.js'
-
 const poolData = {
     UserPoolId: 'us-west-2_ZoUst2VmH',
     ClientId: '5dtn41m68s3s07uh8r1cs0id1f'
@@ -18,24 +15,6 @@ export default function VerificationScreen({ route, navigation }) {
 
     // Get username from previous screen, if you passed it.
     const { username , password, userSub} = route.params;
-
-    // async function addToDatabase() {
-    //     try {
-
-    //         const newUser = {
-    //             id: result.userSub,  // This is the unique ID assigned to the user by Cognito
-    //             name: username,
-    //             email: email
-    //         };
-    //         console.log(result.userSub)
-
-    //         // await API.graphql(graphqlOperation(createUsers, { input: newUser }));
-    //         Alert.alert("Success", "User registration successful. Please verify your email.");
-    //         console.log(newUser);
-    //     } catch (error) {
-    //         console.error("Error adding user to the database", error);
-    //     }
-    // }
 
     const handleVerification = () => {
         console.log("Received username:", username);
@@ -53,8 +32,6 @@ export default function VerificationScreen({ route, navigation }) {
                 return;
             }
 
-            // addToDatabase();
-            
             Alert.alert("Success", "Verification successful. Please sign in.");
             navigation.navigate('AttributeScreen', {email: username, password: password, userSub : userSub });  // Redirect to SignIn screen
         });

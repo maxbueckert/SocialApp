@@ -15,6 +15,8 @@ export const getLike = /* GraphQL */ `
         job
         school
         interests
+        groups
+        incomingGroupInvites
         photos
         friends
         incomingFriendRequests
@@ -118,6 +120,13 @@ export const getUsers = /* GraphQL */ `
         _lastChangedAt
         __typename
       }
+      myGroups {
+        nextToken
+        startedAt
+        __typename
+      }
+      groups
+      incomingGroupInvites
       photos
       friends
       incomingFriendRequests
@@ -148,6 +157,8 @@ export const listUsers = /* GraphQL */ `
         job
         school
         interests
+        groups
+        incomingGroupInvites
         photos
         friends
         incomingFriendRequests
@@ -188,6 +199,8 @@ export const syncUsers = /* GraphQL */ `
         job
         school
         interests
+        groups
+        incomingGroupInvites
         photos
         friends
         incomingFriendRequests
@@ -197,6 +210,110 @@ export const syncUsers = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const getGroup = /* GraphQL */ `
+  query GetGroup($id: ID!) {
+    getGroup(id: $id) {
+      id
+      creator
+      creatorUser {
+        id
+        name
+        email
+        age
+        gender
+        displayPhoto
+        job
+        school
+        interests
+        groups
+        incomingGroupInvites
+        photos
+        friends
+        incomingFriendRequests
+        outgoingFriendRequests
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      name
+      outgoingInvites
+      matchedGroups
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      usersMyGroupsId
+      __typename
+    }
+  }
+`;
+export const listGroups = /* GraphQL */ `
+  query ListGroups(
+    $filter: ModelGroupFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listGroups(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        creator
+        name
+        outgoingInvites
+        matchedGroups
+        members
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        usersMyGroupsId
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const syncGroups = /* GraphQL */ `
+  query SyncGroups(
+    $filter: ModelGroupFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncGroups(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        creator
+        name
+        outgoingInvites
+        matchedGroups
+        members
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        usersMyGroupsId
         __typename
       }
       nextToken
